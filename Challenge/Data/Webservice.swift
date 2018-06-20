@@ -66,7 +66,15 @@ extension Resource where A: Codable {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
-                return try? decoder.decode(A.self, from: $0)
+                do {
+                    let d = try decoder.decode(A.self, from: $0)
+                    return d
+                }
+                catch {
+                    print("error decoding!")
+                    print(error)
+                }
+                return nil
             }
         }
         if let encoder = encoder {

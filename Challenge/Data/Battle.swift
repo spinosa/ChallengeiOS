@@ -42,7 +42,23 @@ struct Battle: Codable {
         pending,
         complete
     }
+
+    //MARK:-
+    //convenience
+
+    var winner: User? {
+        get {
+            if state == .complete {
+                if outcome == .initiatorWin { return initiator }
+                if outcome == .initiatorLoss { return recipient }
+            }
+            return nil
+        }
+    }
+
 }
+
+//MARK:- Webservice
 
 extension Battle {
     static let all = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json")!)
