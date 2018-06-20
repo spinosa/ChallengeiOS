@@ -14,10 +14,16 @@ struct User: Codable {
         return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
     }
 
+    static func forSignIn(email: String, password: String) -> User {
+        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+    }
+
     let screenname: String
     let email: String?
+
     /// only used during create
     let password: String?
+    
     /// The JWT used for HTTP
     var authorizationHeader: String?
     
@@ -40,6 +46,8 @@ struct User: Codable {
     private static let CurrentUserKey = "current_user"
     private static let EverHadCurrentUser = "ever_had_current_user"
 
+    static let DidSetCurrentUser: NSNotification.Name = NSNotification.Name(rawValue: "DidSetCurrentUser")
+
     static var currentUser: User? {
         get {
             if let data = UserDefaults.standard.object(forKey: CurrentUserKey) as? Data,
@@ -53,7 +61,7 @@ struct User: Codable {
             if let u = newValue {
                 UserDefaults.standard.set(try! PropertyListEncoder().encode(u), forKey: CurrentUserKey)
                 UserDefaults.standard.set(true, forKey: EverHadCurrentUser)
-                NotificationCenter.default.post(name: Notification.Name.DidSetCurrentUser, object: self)
+                NotificationCenter.default.post(name: DidSetCurrentUser, object: self)
             }
         }
     }
@@ -70,11 +78,8 @@ struct User: Codable {
 /// This is the simplest way I could think of to accomplish that (without complicating stuff elsewhere)
 struct  WrappedUser: Codable {
     let user: User
-}
 
-extension User {
-    static let oldCreate = Resource<User>(url: URL(string: "http://localhost:3000/users.json")!)
-    static let create = Resource<User>(url: URL(string: "http://localhost:3000/users.json")!, parser: nil) { (user) -> Data? in
+    static let encoder:((User) -> Data?) = { (user) -> Data? in
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
         encoder.dateEncodingStrategy = .formatted(DateFormatter.iso8601Full)
@@ -83,7 +88,10 @@ extension User {
     }
 }
 
-extension Notification.Name {
-    static let DidSetCurrentUser = Notification.Name("DidSetCurrentUer")
-}
+extension User {
 
+    static let create = Resource<User>(url: URL(string: "http://localhost:3000/users.json")!, encoder: WrappedUser.encoder)
+    
+    static let signIn = Resource<User>(url: URL(string: "http://localhost:3000/users/sign_in.json")!, encoder: WrappedUser.encoder)
+
+}

@@ -13,7 +13,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(forName: Notification.Name.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (note) in
+        NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (note) in
             self.dismiss(animated: true, completion: {
                 //TODO: Load stuff, show first tab, etc.
             })

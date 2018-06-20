@@ -63,7 +63,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9Il-j5-Y5b">
-                                <rect key="frame" x="16" y="160" width="343" height="224"/>
+                                <rect key="frame" x="16" y="160" width="343" height="358"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="screen name" textAlignment="natural" minimumFontSize="21" translatesAutoresizingMaskIntoConstraints="NO" id="83b-i5-Ibb">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="50"/>
@@ -106,6 +106,34 @@
                                             <action selector="signUp:" destination="FuV-sJ-Zgr" eventType="touchUpInside" id="dPs-LY-Jaf"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zkg-AG-eTH">
+                                        <rect key="frame" x="0.0" y="232" width="343" height="30"/>
+                                        <state key="normal" title="I've Already Signed Up"/>
+                                        <connections>
+                                            <action selector="showSignIn" destination="FuV-sJ-Zgr" eventType="touchUpInside" id="1YV-94-gL5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z3v-rY-78r">
+                                        <rect key="frame" x="0.0" y="270" width="343" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.32549019610000002" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="MMM-nS-pA6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="Sign in">
+                                            <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="signIn:" destination="FuV-sJ-Zgr" eventType="touchUpInside" id="c7U-E1-y4S"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jdi-hg-ZCQ">
+                                        <rect key="frame" x="0.0" y="328" width="343" height="30"/>
+                                        <state key="normal" title="I Need to Sign Up"/>
+                                        <connections>
+                                            <action selector="showSignUp" destination="FuV-sJ-Zgr" eventType="touchUpInside" id="FnF-hh-rgU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -121,9 +149,12 @@
                         <viewLayoutGuide key="safeArea" id="Ngj-jh-ZtY"/>
                     </view>
                     <connections>
+                        <outlet property="dontHaveAccountButton" destination="Jdi-hg-ZCQ" id="fmg-U9-hgw"/>
                         <outlet property="email" destination="dOM-S0-3zI" id="RH0-is-6ne"/>
+                        <outlet property="haveAnAccountButton" destination="Zkg-AG-eTH" id="1nI-Vs-4oO"/>
                         <outlet property="password" destination="lfz-NF-deu" id="hGv-eV-y66"/>
                         <outlet property="screenname" destination="83b-i5-Ibb" id="wJl-yV-iHX"/>
+                        <outlet property="signInButton" destination="z3v-rY-78r" id="EkU-RI-iF4"/>
                         <outlet property="signUpButton" destination="Q22-5A-XkL" id="pFa-Sh-fpM"/>
                     </connections>
                 </viewController>
