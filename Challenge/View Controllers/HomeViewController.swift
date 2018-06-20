@@ -20,6 +20,14 @@ class HomeViewController: UIViewController {
         }
     }
 
+    public func showCreatedBattle(_ battle: Battle) {
+        battles.insert(battle, at: 0)
+        let idx = IndexPath(row: 0, section: 0)
+        self.tableView.insertRows(at: [idx], with: .top)
+        self.tableView.selectRow(at: idx, animated: true, scrollPosition: .top)
+        self.performSegue(withIdentifier: "battleSelectedSegue", sender: nil)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,12 +44,31 @@ class HomeViewController: UIViewController {
         reloadAllData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if let selectedidx = self.tableView?.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: selectedidx, animated: true)
+        }
+    }
+
     private func reloadAllData() {
         Webservice.forCurrentUser.load(Battle.all) { (allBattles) in
             if let allBattles = allBattles {
                 self.battles = allBattles
             }
         }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let battleDetailsVC = segue.destination as? BattleDetailsViewController,
+            let selectedBattle = selectedBattle() {
+            battleDetailsVC.battle = selectedBattle
+        }
+    }
+
+    private func selectedBattle() -> Battle? {
+        guard let selectedidx = tableView.indexPathForSelectedRow else { return nil }
+        guard selectedidx.section == 0 else { return nil }
+        return battles[selectedidx.row]
     }
 }
 

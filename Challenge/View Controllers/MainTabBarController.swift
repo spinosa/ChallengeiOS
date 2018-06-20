@@ -13,8 +13,14 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (note) in
+        NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (_) in
             self.dismiss(animated: true, completion: nil)
+        }
+
+        NotificationCenter.default.addObserver(forName: Battle.DidCreateBattle, object: nil, queue: OperationQueue.main) { (note) in
+            if let battle = note.userInfo?[Battle.CreatedBattleKey] as? Battle {
+                self.showCreatedBattle(battle)
+            }
         }
     }
 
@@ -29,4 +35,27 @@ class MainTabBarController: UITabBarController {
         present(signInVC, animated: true, completion: nil)
     }
 
+    private func showCreatedBattle(_ battle: Battle) {
+        if let (homeVC, homeIdx) = viewController(type: HomeViewController.self) {
+            self.selectedIndex = homeIdx
+            homeVC.navigationController?.popToRootViewController(animated: false)
+            homeVC.showCreatedBattle(battle)
+        }
+    }
+
+    private func viewController<T>(type: T.Type) -> (T, Int)? {
+        if let idx = self.viewControllers?.index(where: { (vc) -> Bool in
+            return (vc is T) ||
+                (vc is UINavigationController && (vc as! UINavigationController).viewControllers.first is T)
+        }) {
+            if let vc = self.viewControllers?[idx] as? T {
+                return (vc, idx)
+            }
+            else if let navWrapper = self.viewControllers?[idx] as? UINavigationController,
+                let vc = navWrapper.viewControllers.first as? T {
+                return (vc, idx)
+            }
+        }
+        return nil
+    }
 }

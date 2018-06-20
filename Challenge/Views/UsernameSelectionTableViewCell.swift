@@ -33,8 +33,8 @@ class UsernameSelectionTableViewCell: UITableViewCell {
 
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    public func reset() {
+        usernameField.text = nil
     }
 
     private func search(for username: String) {

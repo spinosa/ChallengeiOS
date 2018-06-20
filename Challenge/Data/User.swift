@@ -21,10 +21,10 @@ struct User: Codable {
     let screenname: String
     let email: String?
 
-    /// only used during create
+    /// kludge: only used during create
     let password: String?
     
-    /// The JWT used for HTTP
+    /// kludge: The JWT used for HTTP
     var authorizationHeader: String?
     
     let phone: String?

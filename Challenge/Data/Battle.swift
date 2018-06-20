@@ -10,10 +10,17 @@ import Foundation
 
 struct Battle: Codable {
 
+    static func forCreate(recipient: User, description: String, invitedRecipientEmail: String? = nil, invitedRecipientPhoneNumber: String? = nil) -> Battle {
+        return Battle(id: "na", initiator: recipient, recipient: recipient, recipientScreenname: recipient.screenname, description: description, outcome: .TBD, state: .open, disputedBy: nil, disputedAt: nil, invitedRecipientEmail: invitedRecipientEmail, invitedRecipientPhoneNumber: invitedRecipientPhoneNumber, createdAt: Date(), updatedAt: Date())
+    }
+
     let id: String
 
     let initiator: User
     let recipient: User?
+    
+    /// kludge: only used during create
+    let recipientScreenname: String?
 
     let description: String
     let outcome: Outcome
@@ -30,18 +37,21 @@ struct Battle: Codable {
 
     enum Outcome: Int, Codable {
         case TBD = 1,
-        initiatorWin,
-        initiatorLoss,
-        noContest
+        initiatorWin = 2,
+        initiatorLoss = 4,
+        noContest = 8
     }
 
     enum State: Int, Codable {
         case open = 1,
-        cancelledByInitiator,
-        declinedByRecipient,
-        pending,
-        complete
+        cancelledByInitiator = 2,
+        declinedByRecipient = 4,
+        pending = 8,
+        complete = 16
     }
+
+    static let DidCreateBattle: NSNotification.Name = NSNotification.Name(rawValue: "DidCreateBattle")
+    static let CreatedBattleKey: String = "CreatedBattle"
 
     //MARK:-
     //convenience
@@ -60,6 +70,24 @@ struct Battle: Codable {
 
 //MARK:- Webservice
 
+/// Ruby API expects {battle: {attr1: this, attr2: that, ...}}
+/// This is the simplest way I could think of to accomplish that (without complicating stuff elsewhere)
+struct  WrappedBattle: Codable {
+    let battle: Battle
+
+    static let encoder:((Battle) -> Data?) = { (battle) -> Data? in
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.dateEncodingStrategy = .formatted(DateFormatter.iso8601Full)
+        let wrappedBattle = WrappedBattle(battle: battle)
+        return try? encoder.encode(wrappedBattle)
+    }
+}
+
 extension Battle {
+
     static let all = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json")!)
+
+    static let create = Resource<Battle>(url: URL(string: "http://localhost:3000/battles.json")!, encoder: WrappedBattle.encoder)
+
 }
