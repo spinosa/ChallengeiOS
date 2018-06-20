@@ -23,18 +23,26 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (_) in
+            self.reloadAllData()
+        }
+
+        reloadAllData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        reloadAllData()
+    }
+
+    private func reloadAllData() {
         Webservice.forCurrentUser.load(Battle.all) { (allBattles) in
             if let allBattles = allBattles {
                 self.battles = allBattles
             }
         }
     }
-
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {

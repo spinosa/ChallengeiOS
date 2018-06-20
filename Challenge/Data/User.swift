@@ -94,4 +94,8 @@ extension User {
     
     static let signIn = Resource<User>(url: URL(string: "http://localhost:3000/users/sign_in.json")!, encoder: WrappedUser.encoder)
 
+    static func searchBy(username: String) -> Resource<[User]> {
+        return Resource<[User]>(url: URL(string: "http://localhost:3000/users/search/screenname/\(username).json")!)
+    }
+
 }

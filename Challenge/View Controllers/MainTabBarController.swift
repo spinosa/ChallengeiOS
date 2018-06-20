@@ -14,9 +14,7 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
 
         NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (note) in
-            self.dismiss(animated: true, completion: {
-                //TODO: Load stuff, show first tab, etc.
-            })
+            self.dismiss(animated: true, completion: nil)
         }
     }
 
@@ -30,4 +28,5 @@ class MainTabBarController: UITabBarController {
         let signInVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignInVC")
         present(signInVC, animated: true, completion: nil)
     }
+
 }

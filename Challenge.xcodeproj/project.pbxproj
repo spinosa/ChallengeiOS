@@ -10,10 +10,11 @@
 		3172282C20D7FCFA0025FCBD /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172282B20D7FCFA0025FCBD /* DateExtensions.swift */; };
 		3172282D20D7FD190025FCBD /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172282B20D7FCFA0025FCBD /* DateExtensions.swift */; };
 		31CA6D6D20DA8D3D000DC552 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */; };
+		31CA6D6F20DAA5BB000DC552 /* SelectOpponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA6D6E20DAA5BB000DC552 /* SelectOpponentViewController.swift */; };
+		31CA6D7220DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA6D7120DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift */; };
 		31CF907820D93A46006B4AA5 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF907720D93A46006B4AA5 /* MainTabBarController.swift */; };
 		31CF907A20D93AB0006B4AA5 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CF907920D93AB0006B4AA5 /* SignInViewController.swift */; };
 		31D44B0220D7DD3A008A6155 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D44B0120D7DD3A008A6155 /* AppDelegate.swift */; };
-		31D44B0620D7DD3A008A6155 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D44B0520D7DD3A008A6155 /* SecondViewController.swift */; };
 		31D44B0920D7DD3A008A6155 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31D44B0720D7DD3A008A6155 /* Main.storyboard */; };
 		31D44B0B20D7DD3B008A6155 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31D44B0A20D7DD3B008A6155 /* Assets.xcassets */; };
 		31D44B0E20D7DD3B008A6155 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31D44B0C20D7DD3B008A6155 /* LaunchScreen.storyboard */; };
@@ -41,11 +42,12 @@
 /* Begin PBXFileReference section */
 		3172282B20D7FCFA0025FCBD /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		31CA6D6E20DAA5BB000DC552 /* SelectOpponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOpponentViewController.swift; sourceTree = "<group>"; };
+		31CA6D7120DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		31CF907720D93A46006B4AA5 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		31CF907920D93AB0006B4AA5 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		31D44AFE20D7DD3A008A6155 /* Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D44B0120D7DD3A008A6155 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		31D44B0520D7DD3A008A6155 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		31D44B0820D7DD3A008A6155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31D44B0A20D7DD3B008A6155 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31D44B0D20D7DD3B008A6155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,9 +88,26 @@
 			path = StdLibExtensions;
 			sourceTree = "<group>";
 		};
+		31CA6D7020DAA697000DC552 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				31CA6D7120DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		31CA6D7320DAAA32000DC552 /* New Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				31CA6D6E20DAA5BB000DC552 /* SelectOpponentViewController.swift */,
+			);
+			path = "New Challenge";
+			sourceTree = "<group>";
+		};
 		31CF907620D93A0B006B4AA5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				31CA6D7320DAAA32000DC552 /* New Challenge */,
 				31CF907720D93A46006B4AA5 /* MainTabBarController.swift */,
 				31CF907920D93AB0006B4AA5 /* SignInViewController.swift */,
 				31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */,
@@ -117,11 +136,11 @@
 		31D44B0020D7DD3A008A6155 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				31CA6D7020DAA697000DC552 /* Views */,
 				31CF907620D93A0B006B4AA5 /* View Controllers */,
 				3172282A20D7FCDC0025FCBD /* StdLibExtensions */,
 				31D44B2320D7E078008A6155 /* Data */,
 				31D44B0120D7DD3A008A6155 /* AppDelegate.swift */,
-				31D44B0520D7DD3A008A6155 /* SecondViewController.swift */,
 				31D44B0720D7DD3A008A6155 /* Main.storyboard */,
 				31D44B0A20D7DD3B008A6155 /* Assets.xcassets */,
 				31D44B0C20D7DD3B008A6155 /* LaunchScreen.storyboard */,
@@ -253,13 +272,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3172282C20D7FCFA0025FCBD /* DateExtensions.swift in Sources */,
-				31D44B0620D7DD3A008A6155 /* SecondViewController.swift in Sources */,
 				31CF907820D93A46006B4AA5 /* MainTabBarController.swift in Sources */,
 				31D44B0220D7DD3A008A6155 /* AppDelegate.swift in Sources */,
 				31D44B2D20D7F275008A6155 /* Webservice.swift in Sources */,
 				31CA6D6D20DA8D3D000DC552 /* HomeViewController.swift in Sources */,
 				31CF907A20D93AB0006B4AA5 /* SignInViewController.swift in Sources */,
 				31D44B2720D7E1D2008A6155 /* User.swift in Sources */,
+				31CA6D6F20DAA5BB000DC552 /* SelectOpponentViewController.swift in Sources */,
+				31CA6D7220DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift in Sources */,
 				31D44B2520D7E096008A6155 /* Battle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
