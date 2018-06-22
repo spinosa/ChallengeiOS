@@ -31,6 +31,12 @@ class SelectOpponentViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        if let selectedidx = self.tableView?.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: selectedidx, animated: true)
+        }
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
