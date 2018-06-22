@@ -240,7 +240,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oUi-FH-7xw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Opponent" id="EGE-cS-dfb"/>
+                    <navigationItem key="navigationItem" title="Opponent" prompt="No challenge is too great." id="EGE-cS-dfb"/>
                     <connections>
                         <outlet property="tableView" destination="vT9-EI-gtX" id="UQ3-Kk-6s2"/>
                     </connections>
@@ -577,12 +577,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NewChallengeTabBarIcon" width="22" height="22"/>
-        <image name="PublicTabBarIcon" width="29" height="18"/>
-        <image name="YouTabBarIcon" width="18" height="26"/>
+        <image name="NewChallengeTabBarIcon" width="21" height="21"/>
+        <image name="PublicTabBarIcon" width="21" height="21"/>
+        <image name="YouTabBarIcon" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="RL3-fO-hOS"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="1" green="0.32549019607843138" blue="0.050980392156862744" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" name="GlobalTintColor"/>
 </document>

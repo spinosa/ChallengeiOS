@@ -31,6 +31,12 @@ class SelectOpponentViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        self.navigationItem.prompt = randomQuote()
+    }
+
     enum Sections: Int {
         case Username = 0, UsernameSearchResults
     }
@@ -104,4 +110,17 @@ extension SelectOpponentViewController: UsernameSelectionTableViewCellDelegate {
         self.usernameSearchResults = users
     }
 
+}
+
+extension SelectOpponentViewController {
+    static let challengeQuotes =
+        ["I love the thrill of victory, and the challenge of defeat",
+         "No challenge is too great",
+         "Strength does not come from winning",
+         "Life is continuously being hungry"]
+
+    private func randomQuote() -> String {
+        //TODO: Swift 4.2 randomElement()
+        return SelectOpponentViewController.challengeQuotes[Int(arc4random_uniform(UInt32(SelectOpponentViewController.challengeQuotes.count)))]
+    }
 }
