@@ -86,8 +86,21 @@ struct  WrappedBattle: Codable {
 
 extension Battle {
 
-    static let all = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json")!)
+    /// All publicly accessible Battles
+    static let all    = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json")!)
 
+    /// Battles created by others, challenging me
+    static let inbox  = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?inbox=true")!)
+
+    /// Battles I've created, challenging another
+    static let outbox = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?outbox=true")!)
+
+    /// Battles involving me (as initiator or recipient) not yet completed (cancelled or finished)
+    static let myActive = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?myActive=true")!)
+
+    /// Battles involving me (as initiator or recipient) that are completed (cancelled or finished)
+    static let myArchive = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?myArchive=true")!)
+
+    /// Create a new Battle
     static let create = Resource<Battle>(url: URL(string: "http://localhost:3000/battles.json")!, encoder: WrappedBattle.encoder)
-
 }
