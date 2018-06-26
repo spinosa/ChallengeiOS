@@ -66,6 +66,25 @@ class MyBattlesViewController: UIViewController {
     enum Sections: Int {
         case Active = 0, Archive
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let battleDetailsVC = segue.destination as? BattleDetailsViewController,
+            let selectedBattle = selectedBattle() {
+            battleDetailsVC.battle = selectedBattle
+        }
+    }
+
+    private func selectedBattle() -> Battle? {
+        guard let selectedidx = tableView.indexPathForSelectedRow else { return nil }
+        switch selectedidx.section {
+        case Sections.Active.rawValue:
+            return activeBattles[selectedidx.row]
+        case Sections.Archive.rawValue:
+            return archiveBattles[selectedidx.row]
+        default:
+            preconditionFailure("Unhandled section")
+        }
+    }
 }
 
 extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -80,10 +99,9 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
         case Sections.Active.rawValue:
             return "Active Challenges"
         case Sections.Archive.rawValue:
-            return "Archived Challenges"
+            return "Completed Challenges"
         default:
-            assertionFailure("unhandled section")
-            return nil
+            preconditionFailure("Unhandled section")
         }
     }
 
@@ -94,8 +112,7 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
         case Sections.Archive.rawValue:
             return archiveBattles.count
         default:
-            assertionFailure("unhandled section")
-            return 0
+            preconditionFailure("Unhandled section")
         }
     }
 

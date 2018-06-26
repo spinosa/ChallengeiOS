@@ -49,12 +49,14 @@ class BattleSummaryTableViewCell: UITableViewCell {
         case .complete:
             switch battle.outcome {
             case .initiatorWin:
-                textLabel?.text = "\(initiator.screenname) wins!"
-                detailTextLabel?.text = "defeating \(recipient.screenname)"
+                textLabel?.text = "\(initiator.screenname) wins"
+                if battle.isDisputed { textLabel?.text! += " *" }
+                detailTextLabel?.text = "defeats \(recipient.screenname)"
 
             case .initiatorLoss:
                 textLabel?.text = "\(recipient.screenname) wins!"
-                detailTextLabel?.text = "defeating \(initiator.screenname)"
+                if battle.isDisputed { textLabel?.text! += " *" }
+                detailTextLabel?.text = "defeats \(initiator.screenname)"
 
             case .noContest:
                 textLabel?.text = "\(initiator.screenname) v \(recipient.screenname)"

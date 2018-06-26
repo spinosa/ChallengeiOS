@@ -14,10 +14,23 @@ class BattleDetailsViewController: UIViewController {
     @IBOutlet weak var recipientLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
 
+    @IBOutlet weak var disputeDisclosureLabel: UILabel!
+    @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var iWonButton: UIButton!
+    @IBOutlet weak var iLostButton: UIButton!
+    @IBOutlet weak var noContestButton: UIButton!
+    @IBOutlet weak var disputeButton: UIButton!
+
+    @IBOutlet var allButtons: [UIButton]!
+    @IBOutlet var outcomeButtons: [UIButton]!
+
+
     public var battle: Battle? = nil {
         didSet {
             if battle != nil {
-                updateView()
+                DispatchQueue.main.async {
+                    self.updateView()
+                }
             }
         }
     }
@@ -33,25 +46,111 @@ class BattleDetailsViewController: UIViewController {
         let initiator = battle.initiator
         loadViewIfNeeded()
 
+        self.allButtons.forEach({ $0.isHidden = true })
+
         switch battle.state {
         case .open:
             self.title = "Proposed"
+            if User.currentUser == battle.recipient {
+                self.acceptButton.isHidden = false
+            }
+
         case .cancelledByInitiator:
             self.title = "Revoked"
             self.navigationItem.prompt = "\(initiator.screenname) revoked"
+
         case .declinedByRecipient:
             self.title = "Declined"
             self.navigationItem.prompt = "\(recipient.screenname) declined"
+
         case .pending:
             self.title = "Underway..."
+            if User.currentUser == battle.recipient {
+                self.outcomeButtons.forEach({ $0.isHidden = false })
+            }
+
         case .complete:
-            self.title = "Settled"
+            guard let winner = battle.winner else {
+                self.title = "Settled"
+                assertionFailure("complete battle without winner")
+                return
+            }
+
+            switch battle.outcome {
+            case .initiatorWin: fallthrough
+            case .initiatorLoss:
+                self.title = "\(winner.screenname) won"
+                if battle.isDisputed { self.title! += "*" }
+            case .noContest:
+                self.title = "No contest"
+            default:
+                assertionFailure("unhandled outcome")
+                self.title = "Settled"
+            }
+
+            if User.currentUser == battle.initiator && !battle.isDisputed {
+                self.disputeButton.isHidden = false
+            }
         }
 
         initiatorLabel.text = initiator.screenname
         recipientLabel.text = recipient.screenname
 
         descriptionLabel.text = battle.description
+
+        disputeDisclosureLabel.isHidden = !battle.isDisputed
+        if let disputedBy = battle.disputedBy {
+            disputeDisclosureLabel.text = "* disputed by \(disputedBy.screenname)"
+        }
+    }
+
+    // ----- Actions -----
+    @IBAction func acceptChallenge(_ sender: Any) {
+        guard let battle = battle else { return }
+
+        Webservice.forCurrentUser.post(battle.accept()) { [weak self] updatedBattle, resp in
+            self?.battle = updatedBattle
+        }
+    }
+
+    @IBAction func iWon(_ sender: Any) {
+        guard let battle = battle else { return }
+        assert(User.currentUser == battle.recipient, "only recipient should be able to say they won")
+        guard User.currentUser == battle.recipient else { return }
+
+        Webservice.forCurrentUser.post(battle.complete(outcome: .initiatorLoss)) { [weak self] updatedBattle, resp in
+            self?.battle = updatedBattle
+        }
+    }
+
+    @IBAction func iLost(_ sender: Any) {
+        guard let battle = battle else { return }
+        assert(User.currentUser == battle.recipient, "only recipient should be able to say they won")
+        guard User.currentUser == battle.recipient else { return }
+
+        Webservice.forCurrentUser.post(battle.complete(outcome: .initiatorWin)) { [weak self] updatedBattle, resp in
+            self?.battle = updatedBattle
+        }
+    }
+
+    @IBAction func noContest(_ sender: Any) {
+        guard let battle = battle else { return }
+        assert(User.currentUser == battle.recipient, "only recipient should be able to say they won")
+        guard User.currentUser == battle.recipient else { return }
+
+        Webservice.forCurrentUser.post(battle.complete(outcome: .noContest)) { [weak self] updatedBattle, resp in
+            self?.battle = updatedBattle
+        }
+    }
+
+    @IBAction func dispute(_ sender: Any) {
+        guard let battle = battle else { return }
+        assert(User.currentUser == battle.initiator, "only initiator should be able to dispute ")
+        guard User.currentUser == battle.initiator else { return }
+
+        Webservice.forCurrentUser.post(battle.dispute()) { [weak self] updatedBattle, resp in
+            self?.battle = updatedBattle
+        }
     }
 
 }

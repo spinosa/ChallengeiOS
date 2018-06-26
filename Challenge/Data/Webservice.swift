@@ -27,11 +27,13 @@ final class Webservice {
         }.resume()
     }
 
-    func post<A>(_ resource: Resource<A>, instance: A, completion: @escaping (A?, URLResponse?) -> ()) {
+    func post<A>(_ resource: Resource<A>, instance: A? = nil, completion: @escaping (A?, URLResponse?) -> ()) {
         var urlRequest = URLRequest(url: resource.url)
         decorateHeaders(&urlRequest)
         urlRequest.httpMethod = "POST"
-        urlRequest.httpBody = resource.encode(instance)
+        if let instance = instance {
+            urlRequest.httpBody = resource.encode(instance)
+        }
 
         URLSession.shared.dataTask(with: urlRequest) { (data, response, _) in
             let result = data.flatMap(resource.parse)

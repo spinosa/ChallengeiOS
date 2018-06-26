@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -349,18 +350,91 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1K-Ld-XVp">
                                                 <rect key="frame" x="0.0" y="108.5" width="359" height="31.5"/>
-                                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="26"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="26"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FM1-eC-gSM">
+                                        <rect key="frame" x="8" y="164" width="359" height="41"/>
+                                        <color key="backgroundColor" name="GlobalTintColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="Bring it on">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="acceptChallenge:" destination="90C-vs-Hb0" eventType="touchUpInside" id="fBS-8X-cMm"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bDd-NZ-A1C">
+                                        <rect key="frame" x="8" y="213" width="359" height="41"/>
+                                        <color key="backgroundColor" name="GlobalTintColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="I Won">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="iWon:" destination="90C-vs-Hb0" eventType="touchUpInside" id="fQd-MM-REY"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4v-he-d6u">
+                                        <rect key="frame" x="8" y="262" width="359" height="41"/>
+                                        <color key="backgroundColor" name="GlobalTintComplimentColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <state key="normal" title="I Lost">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="iLost:" destination="90C-vs-Hb0" eventType="touchUpInside" id="kcN-UR-f7e"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dam-Bc-9wS">
+                                        <rect key="frame" x="8" y="318" width="359" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="no contest"/>
+                                        <connections>
+                                            <action selector="noContest:" destination="90C-vs-Hb0" eventType="touchUpInside" id="WEh-4o-jXY"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLh-ar-ks5">
+                                        <rect key="frame" x="8" y="384" width="359" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="disputed"/>
+                                        <connections>
+                                            <action selector="dispute:" destination="90C-vs-Hb0" eventType="touchUpInside" id="p6d-kM-FVW"/>
+                                        </connections>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*disputed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p17-ln-lYt">
+                                        <rect key="frame" x="8" y="426" width="359" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="bDd-NZ-A1C" firstAttribute="trailing" secondItem="9mE-TC-6wH" secondAttribute="trailingMargin" id="3US-16-oH6"/>
+                                    <constraint firstItem="FM1-eC-gSM" firstAttribute="top" secondItem="znh-JX-FRe" secondAttribute="bottom" constant="8" id="58f-CK-aud"/>
+                                    <constraint firstItem="bDd-NZ-A1C" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leadingMargin" id="76z-kQ-PnO"/>
+                                    <constraint firstItem="p17-ln-lYt" firstAttribute="trailing" secondItem="9mE-TC-6wH" secondAttribute="trailingMargin" id="7z7-cY-WnJ"/>
                                     <constraint firstAttribute="trailing" secondItem="znh-JX-FRe" secondAttribute="trailing" constant="8" id="Ctr-F9-uTQ"/>
+                                    <constraint firstItem="XLh-ar-ks5" firstAttribute="trailing" secondItem="9mE-TC-6wH" secondAttribute="trailingMargin" id="F78-gp-0hV"/>
                                     <constraint firstAttribute="bottom" secondItem="znh-JX-FRe" secondAttribute="bottom" constant="500" id="G7K-fK-Tyx"/>
+                                    <constraint firstItem="p17-ln-lYt" firstAttribute="top" secondItem="XLh-ar-ks5" secondAttribute="bottom" constant="8" id="NCU-aw-1vS"/>
+                                    <constraint firstItem="p17-ln-lYt" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leadingMargin" id="NHS-aI-OaD"/>
                                     <constraint firstItem="znh-JX-FRe" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leading" constant="8" id="PSS-Bf-ouh"/>
+                                    <constraint firstItem="XLh-ar-ks5" firstAttribute="top" secondItem="dam-Bc-9wS" secondAttribute="bottom" constant="32" id="QRI-ow-SEx"/>
+                                    <constraint firstItem="FM1-eC-gSM" firstAttribute="trailing" secondItem="9mE-TC-6wH" secondAttribute="trailingMargin" id="SfF-hF-t9B"/>
+                                    <constraint firstItem="XLh-ar-ks5" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leadingMargin" id="T7R-iK-NOr"/>
+                                    <constraint firstItem="dam-Bc-9wS" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leadingMargin" id="Tw4-Au-Tan"/>
+                                    <constraint firstItem="y4v-he-d6u" firstAttribute="trailing" secondItem="9mE-TC-6wH" secondAttribute="trailingMargin" id="Um0-pn-2yJ"/>
+                                    <constraint firstItem="FM1-eC-gSM" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leadingMargin" id="UnR-Wz-U3E"/>
+                                    <constraint firstItem="y4v-he-d6u" firstAttribute="leading" secondItem="9mE-TC-6wH" secondAttribute="leadingMargin" id="bXH-Px-4yN"/>
+                                    <constraint firstItem="y4v-he-d6u" firstAttribute="top" secondItem="bDd-NZ-A1C" secondAttribute="bottom" constant="8" id="eC5-de-vZi"/>
+                                    <constraint firstItem="dam-Bc-9wS" firstAttribute="top" secondItem="y4v-he-d6u" secondAttribute="bottom" constant="15" id="fmA-nT-OQp"/>
+                                    <constraint firstItem="dam-Bc-9wS" firstAttribute="trailing" secondItem="9mE-TC-6wH" secondAttribute="trailingMargin" id="hPh-GI-huR"/>
                                     <constraint firstItem="znh-JX-FRe" firstAttribute="top" secondItem="9mE-TC-6wH" secondAttribute="top" constant="16" id="jsi-cm-JVJ"/>
+                                    <constraint firstItem="bDd-NZ-A1C" firstAttribute="top" secondItem="FM1-eC-gSM" secondAttribute="bottom" constant="8" id="yZm-Wm-eqY"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -377,14 +451,28 @@
                     </view>
                     <navigationItem key="navigationItem" title="Challenge Details" id="haU-tS-bor"/>
                     <connections>
+                        <outlet property="acceptButton" destination="FM1-eC-gSM" id="zKc-S1-jzi"/>
                         <outlet property="descriptionLabel" destination="u1K-Ld-XVp" id="U4K-eI-LOO"/>
+                        <outlet property="disputeButton" destination="XLh-ar-ks5" id="ch5-Jl-Yv7"/>
+                        <outlet property="disputeDisclosureLabel" destination="p17-ln-lYt" id="ELa-bk-9HS"/>
+                        <outlet property="iLostButton" destination="y4v-he-d6u" id="tAu-Ee-cjH"/>
+                        <outlet property="iWonButton" destination="bDd-NZ-A1C" id="qbe-Ev-NS8"/>
                         <outlet property="initiatorLabel" destination="NWq-3L-eSH" id="dpL-9X-uu3"/>
+                        <outlet property="noContestButton" destination="dam-Bc-9wS" id="qbF-EK-6B2"/>
                         <outlet property="recipientLabel" destination="lFo-zb-XP2" id="t1S-aC-pJt"/>
+                        <outletCollection property="allButtons" destination="FM1-eC-gSM" collectionClass="NSMutableArray" id="7Qq-bd-RzJ"/>
+                        <outletCollection property="allButtons" destination="bDd-NZ-A1C" collectionClass="NSMutableArray" id="LnK-dc-Bwz"/>
+                        <outletCollection property="allButtons" destination="y4v-he-d6u" collectionClass="NSMutableArray" id="Q09-b3-ypv"/>
+                        <outletCollection property="allButtons" destination="dam-Bc-9wS" collectionClass="NSMutableArray" id="sTC-Wp-42o"/>
+                        <outletCollection property="allButtons" destination="XLh-ar-ks5" collectionClass="NSMutableArray" id="2DG-tT-7S7"/>
+                        <outletCollection property="outcomeButtons" destination="bDd-NZ-A1C" collectionClass="NSMutableArray" id="g6n-aA-pJo"/>
+                        <outletCollection property="outcomeButtons" destination="y4v-he-d6u" collectionClass="NSMutableArray" id="W1R-dD-dlM"/>
+                        <outletCollection property="outcomeButtons" destination="dam-Bc-9wS" collectionClass="NSMutableArray" id="xoM-Sd-6rR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qtv-ZY-lG3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2625" y="-757"/>
+            <point key="canvasLocation" x="2624.8000000000002" y="-757.87106446776613"/>
         </scene>
         <!--You-->
         <scene sceneID="yXC-mg-goJ">
@@ -462,7 +550,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicBattle" textLabel="z0Y-oD-baw" detailTextLabel="M7g-6i-SCL" style="IBUITableViewCellStyleSubtitle" id="7LD-rQ-BUZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="battleSummaryCell" textLabel="z0Y-oD-baw" detailTextLabel="M7g-6i-SCL" style="IBUITableViewCellStyleSubtitle" id="7LD-rQ-BUZ" customClass="BattleSummaryTableViewCell" customModule="Challenge" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7LD-rQ-BUZ" id="vmR-0S-Dlj">
@@ -580,9 +668,15 @@
         <image name="NewChallengeTabBarIcon" width="21" height="21"/>
         <image name="PublicTabBarIcon" width="21" height="21"/>
         <image name="YouTabBarIcon" width="21" height="21"/>
+        <namedColor name="GlobalTintColor">
+            <color red="1" green="0.32549019607843138" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="GlobalTintComplimentColor">
+            <color red="0.0" green="0.69803921568627447" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="RL3-fO-hOS"/>
+        <segue reference="zhj-0D-jNR"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="GlobalTintColor"/>
 </document>

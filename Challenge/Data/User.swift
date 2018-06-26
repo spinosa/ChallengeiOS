@@ -74,6 +74,12 @@ struct User: Codable {
 
 }
 
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.screenname == rhs.screenname
+    }
+}
+
 /// Ruby API expects {user: {attr1: this, attr2: that, ...}}
 /// This is the simplest way I could think of to accomplish that (without complicating stuff elsewhere)
 struct  WrappedUser: Codable {
