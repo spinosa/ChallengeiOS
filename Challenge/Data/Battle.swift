@@ -93,50 +93,50 @@ struct  WrappedBattle: Codable {
 extension Battle {
 
     /// All publicly accessible Battles
-    static let all    = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json")!)
+    static let all    = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json")!)
 
     /// Battles created by others, challenging me
-    static let inbox  = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?inbox=true")!)
+    static let inbox  = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json?inbox=true")!)
 
     /// Battles I've created, challenging another
-    static let outbox = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?outbox=true")!)
+    static let outbox = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json?outbox=true")!)
 
     /// Battles involving me (as initiator or recipient) not yet completed (cancelled or finished)
-    static let myActive = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?myActive=true")!)
+    static let myActive = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json?myActive=true")!)
 
     /// Battles involving me (as initiator or recipient) that are completed (cancelled or finished)
-    static let myArchive = Resource<[Battle]>(url: URL(string: "http://localhost:3000/battles.json?myArchive=true")!)
+    static let myArchive = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json?myArchive=true")!)
 
     /// Create a new Battle
-    static let create = Resource<Battle>(url: URL(string: "http://localhost:3000/battles.json")!, encoder: WrappedBattle.encoder)
+    static let create = Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles.json")!, encoder: WrappedBattle.encoder)
 
     /// Initiator can cancel a battle while it's pending
     static func cancel(battle: Battle) -> Resource<Battle> {
-        return Resource<Battle>(url: URL(string: "http://localhost:3000/battles/\(battle.id)/cancel.json")!)
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(battle.id)/cancel.json")!)
     }
     func cancel() -> Resource<Battle> { return Battle.cancel(battle: self) }
 
     /// Recipient can decline a battle while it's pending
     static func decline(battle: Battle) -> Resource<Battle> {
-        return Resource<Battle>(url: URL(string: "http://localhost:3000/battles/\(battle.id)/decline.json")!)
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(battle.id)/decline.json")!)
     }
     func decline() -> Resource<Battle> { return Battle.decline(battle: self) }
 
     /// Recipient can accept a battle while it's pending
     static func accept(battle: Battle) -> Resource<Battle> {
-        return Resource<Battle>(url: URL(string: "http://localhost:3000/battles/\(battle.id)/accept.json")!)
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(battle.id)/accept.json")!)
     }
     func accept() -> Resource<Battle> { return Battle.accept(battle: self) }
 
     /// Recipient sets the outcome of an open battle
     static func complete(battle: Battle, outcome: Battle.Outcome) -> Resource<Battle> {
-        return Resource<Battle>(url: URL(string: "http://localhost:3000/battles/\(battle.id)/complete.json?outcome=\(outcome.rawValue)")!)
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(battle.id)/complete.json?outcome=\(outcome.rawValue)")!)
     }
     func complete(outcome: Battle.Outcome) -> Resource<Battle> { return Battle.complete(battle: self, outcome: outcome) }
 
     /// Initiator can dispute a battle after it's completed
     static func dispute(battle: Battle) -> Resource<Battle> {
-        return Resource<Battle>(url: URL(string: "http://localhost:3000/battles/\(battle.id)/dispute.json")!)
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(battle.id)/dispute.json")!)
     }
     func dispute() -> Resource<Battle> { return Battle.dispute(battle: self) }
 }

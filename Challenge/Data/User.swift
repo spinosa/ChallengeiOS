@@ -96,12 +96,12 @@ struct  WrappedUser: Codable {
 
 extension User {
 
-    static let create = Resource<User>(url: URL(string: "http://localhost:3000/users.json")!, encoder: WrappedUser.encoder)
+    static let create = Resource<User>(url: URL(string: "\(Endpoints.apiBase)/users.json")!, encoder: WrappedUser.encoder)
     
-    static let signIn = Resource<User>(url: URL(string: "http://localhost:3000/users/sign_in.json")!, encoder: WrappedUser.encoder)
+    static let signIn = Resource<User>(url: URL(string: "\(Endpoints.apiBase)/users/sign_in.json")!, encoder: WrappedUser.encoder)
 
     static func searchBy(username: String) -> Resource<[User]> {
-        return Resource<[User]>(url: URL(string: "http://localhost:3000/users/search/screenname/\(username).json")!)
+        return Resource<[User]>(url: URL(string: "\(Endpoints.apiBase)/users/search/screenname/\(username).json")!)
     }
 
 }
