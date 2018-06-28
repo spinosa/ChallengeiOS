@@ -24,16 +24,18 @@ class BattleDetailsViewController: UIViewController {
     @IBOutlet var allButtons: [UIButton]!
     @IBOutlet var outcomeButtons: [UIButton]!
 
-
     public var battle: Battle? = nil {
         didSet {
-            if battle != nil {
+            if let battle = battle {
+                self.didUpdateBattle?(battle)
                 DispatchQueue.main.async {
                     self.updateView()
                 }
             }
         }
     }
+
+    public var didUpdateBattle: ((Battle)->())?
 
     override func viewDidLoad() {
         super.viewDidLoad()

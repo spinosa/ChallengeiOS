@@ -60,15 +60,21 @@ class HomeViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let battleDetailsVC = segue.destination as? BattleDetailsViewController,
-            let selectedBattle = selectedBattle() {
+            let (selectedBattle, selectedIdx) = selectedBattle() {
             battleDetailsVC.battle = selectedBattle
+            battleDetailsVC.didUpdateBattle = { self.update(indexPath: selectedIdx, with: $0) }
         }
     }
 
-    private func selectedBattle() -> Battle? {
+    private func selectedBattle() -> (Battle, IndexPath)? {
         guard let selectedidx = tableView.indexPathForSelectedRow else { return nil }
         guard selectedidx.section == 0 else { return nil }
-        return battles[selectedidx.row]
+        return (battles[selectedidx.row], selectedidx)
+    }
+
+    private func update(indexPath: IndexPath, with battle: Battle) {
+        battles[indexPath.row] = battle
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 

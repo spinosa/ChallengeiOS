@@ -40,8 +40,6 @@ class MyBattlesViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        reloadAllData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -69,21 +67,34 @@ class MyBattlesViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let battleDetailsVC = segue.destination as? BattleDetailsViewController,
-            let selectedBattle = selectedBattle() {
+            let (selectedBattle, selectedIdx) = selectedBattle() {
             battleDetailsVC.battle = selectedBattle
+            battleDetailsVC.didUpdateBattle = { self.update(indexPath: selectedIdx, with: $0) }
         }
     }
 
-    private func selectedBattle() -> Battle? {
+    private func selectedBattle() -> (Battle, IndexPath)? {
         guard let selectedidx = tableView.indexPathForSelectedRow else { return nil }
         switch selectedidx.section {
         case Sections.Active.rawValue:
-            return activeBattles[selectedidx.row]
+            return (activeBattles[selectedidx.row], selectedidx)
         case Sections.Archive.rawValue:
-            return archiveBattles[selectedidx.row]
+            return (archiveBattles[selectedidx.row], selectedidx)
         default:
             preconditionFailure("Unhandled section")
         }
+    }
+
+    private func update(indexPath: IndexPath, with battle: Battle) {
+        switch indexPath.section {
+        case Sections.Active.rawValue:
+            activeBattles[indexPath.row] = battle
+        case Sections.Archive.rawValue:
+            archiveBattles[indexPath.row] = battle
+        default:
+            preconditionFailure("Unhandled section")
+        }
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
 
