@@ -36,14 +36,16 @@ class BattleSummaryTableViewCell: UITableViewCell {
 
         case .open:
             textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
-            detailTextLabel?.text = "waiting for \(recipient.screenname) to accept"
+            User.currentUser == recipient ?
+                (detailTextLabel?.text = "waiting for you to accept") :
+                (detailTextLabel?.text = "waiting for \(recipient.screenname) to accept")
 
         case .declinedByRecipient:
             textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
             detailTextLabel?.text = "declined by \(recipient.screenname)"
 
         case .pending:
-            textLabel?.text = "\(initiator.screenname) v \(recipient.screenname)"
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
             detailTextLabel?.text = "it's on!"
 
         case .complete:
