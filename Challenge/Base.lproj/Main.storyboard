@@ -316,7 +316,7 @@
             </objects>
             <point key="canvasLocation" x="2624.8000000000002" y="364.7676161919041"/>
         </scene>
-        <!--Challenge Details-->
+        <!--Battle Details View Controller-->
         <scene sceneID="iTb-VG-yzu">
             <objects>
                 <viewController id="90C-vs-Hb0" customClass="BattleDetailsViewController" customModule="Challenge" customModuleProvider="target" sceneMemberID="viewController">
@@ -449,7 +449,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EOb-VP-u0e"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Challenge Details" id="haU-tS-bor"/>
+                    <navigationItem key="navigationItem" id="haU-tS-bor"/>
                     <connections>
                         <outlet property="acceptButton" destination="FM1-eC-gSM" id="zKc-S1-jzi"/>
                         <outlet property="descriptionLabel" destination="u1K-Ld-XVp" id="U4K-eI-LOO"/>
