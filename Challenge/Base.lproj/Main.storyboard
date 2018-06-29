@@ -137,9 +137,9 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="cBC-Qo-6sv" kind="relationship" relationship="viewControllers" id="S3E-z1-PMp"/>
-                        <segue destination="vDK-3A-jIo" kind="relationship" relationship="viewControllers" id="Qbp-hQ-Xe2"/>
                         <segue destination="7WM-ja-kaj" kind="relationship" relationship="viewControllers" id="jjp-QQ-ZQf"/>
+                        <segue destination="vDK-3A-jIo" kind="relationship" relationship="viewControllers" id="Qbp-hQ-Xe2"/>
+                        <segue destination="cBC-Qo-6sv" kind="relationship" relationship="viewControllers" id="S3E-z1-PMp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
