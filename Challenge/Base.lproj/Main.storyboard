@@ -178,7 +178,7 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" textContentType="username"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search"/>
                                                     <connections>
                                                         <action selector="usernameUpdated:" destination="0kj-mF-5E8" eventType="editingChanged" id="aSi-8G-ZjY"/>
                                                     </connections>

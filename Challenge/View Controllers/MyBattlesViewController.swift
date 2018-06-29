@@ -12,6 +12,13 @@ class MyBattlesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    lazy var refreshControl: UIRefreshControl = {
+        let refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(MyBattlesViewController.reloadAllData), for: UIControlEvents.valueChanged)
+        refresher.tintColor = UIColor(named: "GlobalTintColor")
+        return refresher
+    }()
+
     private var activeBattles: [Battle] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -31,6 +38,8 @@ class MyBattlesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.refreshControl = refreshControl
+        
         NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (_) in
             self.reloadAllData()
         }
@@ -48,13 +57,16 @@ class MyBattlesViewController: UIViewController {
         }
     }
 
-    private func reloadAllData() {
+    @objc private func reloadAllData() {
         Webservice.forCurrentUser.load(Battle.myActive) { (battles) in
             if let battles = battles {
                 self.activeBattles = battles
             }
         }
         Webservice.forCurrentUser.load(Battle.myArchive) { (battles) in
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
             if let battles = battles {
                 self.archiveBattles = battles
             }

@@ -12,6 +12,13 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    lazy var refreshControl: UIRefreshControl = {
+        let refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(HomeViewController.reloadAllData), for: UIControlEvents.valueChanged)
+        refresher.tintColor = UIColor(named: "GlobalTintColor")
+        return refresher
+    }()
+
     private var battles: [Battle] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
@@ -20,16 +27,10 @@ class HomeViewController: UIViewController {
         }
     }
 
-    public func showCreatedBattle(_ battle: Battle) {
-        battles.insert(battle, at: 0)
-        let idx = IndexPath(row: 0, section: 0)
-        self.tableView.insertRows(at: [idx], with: .top)
-        self.tableView.selectRow(at: idx, animated: true, scrollPosition: .top)
-        self.performSegue(withIdentifier: "battleSelectedSegue", sender: nil)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        tableView.refreshControl = refreshControl
 
         NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (_) in
             self.reloadAllData()
@@ -50,8 +51,11 @@ class HomeViewController: UIViewController {
         }
     }
 
-    private func reloadAllData() {
+    @objc private func reloadAllData() {
         Webservice.forCurrentUser.load(Battle.all) { (allBattles) in
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
             if let allBattles = allBattles {
                 self.battles = allBattles
             }
@@ -68,6 +72,14 @@ class HomeViewController: UIViewController {
                 }
             }
         }
+    }
+
+    public func showCreatedBattle(_ battle: Battle) {
+        battles.insert(battle, at: 0)
+        let idx = IndexPath(row: 0, section: 0)
+        self.tableView.insertRows(at: [idx], with: .top)
+        self.tableView.selectRow(at: idx, animated: true, scrollPosition: .top)
+        self.performSegue(withIdentifier: "battleSelectedSegue", sender: nil)
     }
 
     private func selectedBattle() -> (Battle, IndexPath)? {
