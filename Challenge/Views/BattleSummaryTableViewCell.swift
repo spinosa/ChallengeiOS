@@ -31,15 +31,15 @@ class BattleSummaryTableViewCell: UITableViewCell {
 
         switch battle.state {
         case .cancelledByInitiator:
-            textLabel?.text = "\(initiator.screenname) v \(recipient.screenname)"
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
             detailTextLabel?.text = "withdrawn by \(initiator.screenname)"
 
         case .open:
-            textLabel?.text = "\(initiator.screenname) v \(recipient.screenname)"
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
             detailTextLabel?.text = "waiting for \(recipient.screenname) to accept"
 
         case .declinedByRecipient:
-            textLabel?.text = "\(initiator.screenname) v \(recipient.screenname)"
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
             detailTextLabel?.text = "declined by \(recipient.screenname)"
 
         case .pending:
@@ -49,17 +49,21 @@ class BattleSummaryTableViewCell: UITableViewCell {
         case .complete:
             switch battle.outcome {
             case .initiatorWin:
-                textLabel?.text = "\(initiator.screenname) wins"
+                User.currentUser == initiator ?
+                    (textLabel?.text = "You won!") :
+                    (textLabel?.text = "\(initiator.screenname) wins")
                 if battle.isDisputed { textLabel?.text! += " *" }
-                detailTextLabel?.text = "defeats \(recipient.screenname)"
+                detailTextLabel?.text = "defeating \(recipient.screenname)"
 
             case .initiatorLoss:
-                textLabel?.text = "\(recipient.screenname) wins!"
+                User.currentUser == recipient ?
+                    (textLabel?.text = "You won!") :
+                    (textLabel?.text = "\(recipient.screenname) wins")
                 if battle.isDisputed { textLabel?.text! += " *" }
-                detailTextLabel?.text = "defeats \(initiator.screenname)"
+                detailTextLabel?.text = "defeating \(initiator.screenname)"
 
             case .noContest:
-                textLabel?.text = "\(initiator.screenname) v \(recipient.screenname)"
+                textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
                 detailTextLabel?.text = "no contest"
 
             case .TBD:
@@ -67,6 +71,19 @@ class BattleSummaryTableViewCell: UITableViewCell {
                 detailTextLabel?.text = "Complete but outcome is TBD"
             }
         }
+    }
+
+    private func headline(_ initiator: User, v recipient: User, perspective: User?) -> String {
+        if let viewer = perspective {
+            if viewer == initiator {
+                return "You v \(recipient.screenname)"
+            }
+            if viewer == recipient {
+                return "\(recipient.screenname) challenged you"
+            }
+        }
+
+        return "\(initiator.screenname) v \(recipient.screenname)"
     }
 
 }
