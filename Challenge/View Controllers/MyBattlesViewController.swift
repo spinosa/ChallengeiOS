@@ -69,7 +69,11 @@ class MyBattlesViewController: UIViewController {
         if let battleDetailsVC = segue.destination as? BattleDetailsViewController,
             let (selectedBattle, selectedIdx) = selectedBattle() {
             battleDetailsVC.battle = selectedBattle
-            battleDetailsVC.didUpdateBattle = { self.update(indexPath: selectedIdx, with: $0) }
+            battleDetailsVC.didUpdateBattle = { battle in
+                DispatchQueue.main.async {
+                    self.update(indexPath: selectedIdx, with: battle)
+                }
+            }
         }
     }
 
