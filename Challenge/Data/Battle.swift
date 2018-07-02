@@ -78,7 +78,7 @@ struct Battle: Codable {
 
 /// Ruby API expects {battle: {attr1: this, attr2: that, ...}}
 /// This is the simplest way I could think of to accomplish that (without complicating stuff elsewhere)
-struct  WrappedBattle: Codable {
+fileprivate struct  WrappedBattle: Codable {
     let battle: Battle
 
     static let encoder:((Battle) -> Data?) = { (battle) -> Data? in

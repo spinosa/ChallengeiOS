@@ -44,7 +44,9 @@ class MyBattlesViewController: UIViewController {
             self.reloadAllData()
         }
 
-        reloadAllData()
+        if User.currentUser != nil {
+            reloadAllData()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

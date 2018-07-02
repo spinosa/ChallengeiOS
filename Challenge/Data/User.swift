@@ -11,11 +11,11 @@ import Foundation
 struct User: Codable {
 
     static func forCreate(screenname: String, email: String, password: String) -> User {
-        return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+        return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
     }
 
     static func forSignIn(email: String, password: String) -> User {
-        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
     }
 
     let screenname: String
@@ -26,6 +26,9 @@ struct User: Codable {
     
     /// kludge: The JWT used for HTTP
     var authorizationHeader: String?
+
+    /// Used to PATCH user on server side
+    var apnsDeviceToken: String?
     
     let phone: String?
     let phoneConfirmed: Bool = false
@@ -82,7 +85,7 @@ extension User: Equatable {
 
 /// Ruby API expects {user: {attr1: this, attr2: that, ...}}
 /// This is the simplest way I could think of to accomplish that (without complicating stuff elsewhere)
-struct  WrappedUser: Codable {
+fileprivate struct  WrappedUser: Codable {
     let user: User
 
     static let encoder:((User) -> Data?) = { (user) -> Data? in
@@ -99,6 +102,8 @@ extension User {
     static let create = Resource<User>(url: URL(string: "\(Endpoints.apiBase)/users.json")!, encoder: WrappedUser.encoder)
     
     static let signIn = Resource<User>(url: URL(string: "\(Endpoints.apiBase)/users/sign_in.json")!, encoder: WrappedUser.encoder)
+
+    static let update = Resource<User>(url: URL(string: "\(Endpoints.apiBase)/current_user.json")!, encoder: WrappedUser.encoder)
 
     static func searchBy(username: String) -> Resource<[User]> {
         return Resource<[User]>(url: URL(string: "\(Endpoints.apiBase)/users/search/screenname/\(username).json")!)

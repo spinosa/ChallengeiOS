@@ -41,6 +41,18 @@ final class Webservice {
         }.resume()
     }
 
+    func patch<A>(_ resource: Resource<A>, instance: A, completion: @escaping (A?, URLResponse?) -> ()) {
+        var urlRequest = URLRequest(url: resource.url)
+        decorateHeaders(&urlRequest)
+        urlRequest.httpMethod = "PATCH"
+        urlRequest.httpBody = resource.encode(instance)
+
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, _) in
+            let result = data.flatMap(resource.parse)
+            completion(result, response)
+            }.resume()
+    }
+
     private func decorateHeaders(_ urlRequest: inout URLRequest) {
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         if useCurrentUserAuthHeader,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class CreateBattleViewController: UIViewController, UITextViewDelegate {
 
@@ -39,11 +40,13 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
 
         let newBattle = Battle.forCreate(recipient: opponent, description: description)
 
-        Webservice.forCurrentUser.post(Battle.create, instance: newBattle) { [weak self] (battle, _) in
+        Webservice.forCurrentUser.post(Battle.create, instance: newBattle) { (battle, _) in
             DispatchQueue.main.async {
+                self.requestPushNotifications()
+
                 NotificationCenter.default.post(name: Battle.DidCreateBattle, object: nil, userInfo: [Battle.CreatedBattleKey: battle as Any])
-                self?.reset()
-                self?.navigationController?.popToRootViewController(animated: false)
+                self.reset()
+                self.navigationController?.popToRootViewController(animated: false)
             }
         }
     }
@@ -71,5 +74,27 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         descriptionPlaceholderLabel.isHidden = !descriptionTextView.text.isEmpty
+    }
+
+    private func requestPushNotifications() {
+        //SOMEDAY: Put up one of those pre-request messages to better explain notifications and get opt-in?
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            print("USER NOTIFCATIONS CAME BACK")
+            print("granted? \(granted)")
+
+            if granted {
+                print("We have been granted notifications")
+                //I don't think we need to do this.  Doesn't hurt...
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+            else if let error = error {
+                print("error? \(error)")
+            }
+            else {
+                //SOMEDAY: Let the user know we can't push to them
+            }
+        }
+
+
     }
 }

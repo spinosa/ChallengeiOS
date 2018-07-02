@@ -17,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UITabBar.appearance().tintColor = UIColor(named: "GlobalTintColor")
 
+        // First-registration happens at a more appropriate time
+        UIApplication.shared.registerForRemoteNotifications()
+
         return true
     }
 
@@ -42,6 +45,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    //MARK: - Push Notifications
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        if var u = User.currentUser {
+            let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+            print("Registered for push!  Saving token: \(token)")
+            u.apnsDeviceToken = token
+            Webservice.forCurrentUser.patch(User.update, instance: u) { (updatedUser, response) in
+                print("updated user with device token!")
+            }
+        }
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for push with error: \(error)")
+    }
 
 }
 
