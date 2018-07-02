@@ -36,10 +36,10 @@ class MainTabBarController: UITabBarController {
     }
 
     private func showCreatedBattle(_ battle: Battle) {
-        if let (homeVC, homeIdx) = viewController(type: HomeViewController.self) {
-            self.selectedIndex = homeIdx
-            homeVC.navigationController?.popToRootViewController(animated: false)
-            homeVC.showCreatedBattle(battle)
+        if let (myBattlesVC, myBattlesIdx) = viewController(type: MyBattlesViewController.self) {
+            self.selectedIndex = myBattlesIdx
+            myBattlesVC.navigationController?.popToRootViewController(animated: false)
+            myBattlesVC.showCreatedBattle(battle)
         }
     }
 
