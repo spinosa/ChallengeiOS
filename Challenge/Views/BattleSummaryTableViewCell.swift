@@ -81,7 +81,7 @@ class BattleSummaryTableViewCell: UITableViewCell {
                 return "You v \(recipient.screenname)"
             }
             if viewer == recipient {
-                return "\(recipient.screenname) challenged you"
+                return "\(initiator.screenname) challenged you"
             }
         }
 
