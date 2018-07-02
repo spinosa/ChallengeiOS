@@ -48,6 +48,7 @@
 /* Begin PBXFileReference section */
 		3100D24E20DD73EE00D4080E /* MyBattlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBattlesViewController.swift; sourceTree = "<group>"; };
 		3100D25020DD7AF900D4080E /* BattleSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleSummaryTableViewCell.swift; sourceTree = "<group>"; };
+		311B688E20E6C2ED00E6CD91 /* Challenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge.entitlements; sourceTree = "<group>"; };
 		3172282B20D7FCFA0025FCBD /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		31C218B020E52FD5006DA452 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 		31D44B0020D7DD3A008A6155 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				311B688E20E6C2ED00E6CD91 /* Challenge.entitlements */,
 				31CA6D7020DAA697000DC552 /* Views */,
 				31CF907620D93A0B006B4AA5 /* View Controllers */,
 				3172282A20D7FCDC0025FCBD /* StdLibExtensions */,
@@ -236,6 +238,14 @@
 				TargetAttributes = {
 					31D44AFD20D7DD3A008A6155 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					31D44B1320D7DD3B008A6155 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -468,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Challenge/Challenge.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8C9UTG7ML3;
 				INFOPLIST_FILE = Challenge/Info.plist;
@@ -486,6 +497,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Challenge/Challenge.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8C9UTG7ML3;
 				INFOPLIST_FILE = Challenge/Info.plist;
