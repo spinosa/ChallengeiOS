@@ -83,9 +83,9 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
             print("granted? \(granted)")
 
             if granted {
-                print("We have been granted notifications")
-                //I don't think we need to do this.  Doesn't hurt...
-                UIApplication.shared.registerForRemoteNotifications()
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
             }
             else if let error = error {
                 print("error? \(error)")
