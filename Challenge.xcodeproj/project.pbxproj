@@ -33,6 +33,7 @@
 		31D44B2E20D7F5D0008A6155 /* Battle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D44B2420D7E096008A6155 /* Battle.swift */; };
 		31D44B2F20D7F5D3008A6155 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D44B2620D7E1D2008A6155 /* User.swift */; };
 		31D44B3020D7F5D5008A6155 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D44B2C20D7F275008A6155 /* Webservice.swift */; };
+		31F3A9D020EBBE0300BA8F34 /* ChallengeNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3A9CF20EBBE0300BA8F34 /* ChallengeNotificationCenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		31D44B2820D7E2B9008A6155 /* BattleModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleModelTests.swift; sourceTree = "<group>"; };
 		31D44B2A20D7E2CD008A6155 /* UserModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTests.swift; sourceTree = "<group>"; };
 		31D44B2C20D7F275008A6155 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
+		31F3A9CF20EBBE0300BA8F34 /* ChallengeNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeNotificationCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				3172282A20D7FCDC0025FCBD /* StdLibExtensions */,
 				31D44B2320D7E078008A6155 /* Data */,
 				31D44B0120D7DD3A008A6155 /* AppDelegate.swift */,
+				31F3A9CF20EBBE0300BA8F34 /* ChallengeNotificationCenter.swift */,
 				31D44B0720D7DD3A008A6155 /* Main.storyboard */,
 				31D44B0A20D7DD3B008A6155 /* Assets.xcassets */,
 				31D44B0C20D7DD3B008A6155 /* LaunchScreen.storyboard */,
@@ -309,6 +312,7 @@
 				31CA6D7720DAEE1D000DC552 /* BattleDetailsViewController.swift in Sources */,
 				3100D24F20DD73EE00D4080E /* MyBattlesViewController.swift in Sources */,
 				31CA6D7520DABD1A000DC552 /* CreateBattleViewController.swift in Sources */,
+				31F3A9D020EBBE0300BA8F34 /* ChallengeNotificationCenter.swift in Sources */,
 				31CA6D6F20DAA5BB000DC552 /* SelectOpponentViewController.swift in Sources */,
 				31CA6D7220DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift in Sources */,
 				31D44B2520D7E096008A6155 /* Battle.swift in Sources */,

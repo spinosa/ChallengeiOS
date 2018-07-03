@@ -51,7 +51,9 @@ struct Battle: Codable {
     }
 
     static let DidCreateBattle: NSNotification.Name = NSNotification.Name(rawValue: "DidCreateBattle")
-    static let CreatedBattleKey: String = "CreatedBattle"
+    static let CreatedBattleKey = "CreatedBattle"
+    static let ShowBattle: NSNotification.Name = NSNotification.Name(rawValue: "ShowBattle")
+    static let BattleIdKey = "BattleId"
 
     //MARK:-
     //convenience

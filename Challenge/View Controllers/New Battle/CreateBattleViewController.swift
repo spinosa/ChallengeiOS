@@ -77,24 +77,6 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
     }
 
     private func requestPushNotifications() {
-        //SOMEDAY: Put up one of those pre-request messages to better explain notifications and get opt-in?
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            print("USER NOTIFCATIONS CAME BACK")
-            print("granted? \(granted)")
-
-            if granted {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
-            }
-            else if let error = error {
-                print("error? \(error)")
-            }
-            else {
-                //SOMEDAY: Let the user know we can't push to them
-            }
-        }
-
-
+        ChallengeNotificationCenter.current.requestAuthorization()
     }
 }

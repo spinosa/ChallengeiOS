@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UITabBar.appearance().tintColor = UIColor(named: "GlobalTintColor")
 
-        // First-registration happens at a more appropriate time
-        UIApplication.shared.registerForRemoteNotifications()
+        UNUserNotificationCenter.current().delegate = ChallengeNotificationCenter.current
 
         return true
     }
