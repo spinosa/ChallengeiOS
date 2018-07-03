@@ -11,6 +11,9 @@ import UIKit
 class MyBattlesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    enum Sections: Int {
+        case Active = 0, Archive
+    }
 
     lazy var refreshControl: UIRefreshControl = {
         let refresher = UIRefreshControl()
@@ -75,6 +78,21 @@ class MyBattlesViewController: UIViewController {
         }
     }
 
+    public func showBattle(id: String) {
+        Webservice.forCurrentUser.load(Battle.show(id: id)) { (battle) in
+            if let battle = battle {
+                //not inserting in data model (at least, not for now)
+                if let battleDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "BattleDetailsViewController") as? BattleDetailsViewController {
+                    battleDetailsVC.battle = battle
+                    battleDetailsVC.didUpdateBattle = self.findAndUpdateBattle
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(battleDetailsVC, animated: true)
+                    }
+                }
+            }
+        }
+    }
+
     public func showCreatedBattle(_ battle: Battle) {
         activeBattles.insert(battle, at: 0)
         let idx = IndexPath(row: 0, section: Sections.Active.rawValue)
@@ -83,31 +101,19 @@ class MyBattlesViewController: UIViewController {
         self.performSegue(withIdentifier: "battleSelectedSegue", sender: nil)
     }
 
-    enum Sections: Int {
-        case Active = 0, Archive
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let battleDetailsVC = segue.destination as? BattleDetailsViewController,
-            let (selectedBattle, selectedIdx) = selectedBattle() {
+            let selectedBattle = selectedBattle() {
             battleDetailsVC.battle = selectedBattle
-            battleDetailsVC.didUpdateBattle = { battle in
-                DispatchQueue.main.async {
-                    self.update(indexPath: selectedIdx, with: battle)
-                }
-            }
+            battleDetailsVC.didUpdateBattle = self.findAndUpdateBattle
         }
     }
 
-    private func selectedBattle() -> (Battle, IndexPath)? {
-        guard let selectedidx = tableView.indexPathForSelectedRow else { return nil }
-        switch selectedidx.section {
-        case Sections.Active.rawValue:
-            return (activeBattles[selectedidx.row], selectedidx)
-        case Sections.Archive.rawValue:
-            return (archiveBattles[selectedidx.row], selectedidx)
-        default:
-            preconditionFailure("Unhandled section")
+    private func findAndUpdateBattle(_ battle: Battle) {
+        DispatchQueue.main.async {
+            if let idx = self.indexPathFor(battle: battle) {
+                self.update(indexPath: idx, with: battle)
+            }
         }
     }
 
@@ -122,6 +128,7 @@ class MyBattlesViewController: UIViewController {
         }
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
+
 }
 
 extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
@@ -172,6 +179,33 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         return cell
+    }
+
+}
+
+//MARK: - Data Model Helpers
+extension MyBattlesViewController {
+
+    private func selectedBattle() -> Battle? {
+        guard let selectedidx = tableView.indexPathForSelectedRow else { return nil }
+        switch selectedidx.section {
+        case Sections.Active.rawValue:
+            return activeBattles[selectedidx.row]
+        case Sections.Archive.rawValue:
+            return archiveBattles[selectedidx.row]
+        default:
+            preconditionFailure("Unhandled section")
+        }
+    }
+
+    private func indexPathFor(battle: Battle) -> IndexPath? {
+        if let row = activeBattles.firstIndex(where: { $0.id == battle.id }) {
+            return IndexPath(row: row, section: Sections.Active.rawValue)
+        }
+        if let row = archiveBattles.firstIndex(where: { $0.id == battle.id }) {
+            return IndexPath(row: row, section: Sections.Archive.rawValue)
+        }
+        return nil
     }
 
 }

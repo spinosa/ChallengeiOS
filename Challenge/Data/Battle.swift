@@ -72,6 +72,12 @@ struct Battle: Codable {
         }
     }
 
+    var isActive: Bool {
+        get {
+            return state == .open || state == .pending
+        }
+    }
+
 }
 
 //MARK:- Webservice
@@ -94,6 +100,11 @@ extension Battle {
 
     /// All publicly accessible Battles
     static let all    = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json")!)
+
+    /// Show a single battle
+    static func show(id: String) -> Resource<Battle> {
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(id).json")!)
+    }
 
     /// Battles created by others, challenging me
     static let inbox  = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json?inbox=true")!)
