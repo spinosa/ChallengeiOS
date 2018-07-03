@@ -102,21 +102,21 @@
 			path = StdLibExtensions;
 			sourceTree = "<group>";
 		};
-		31AD417420EBCEC800418617 /* Support */ = {
-			isa = PBXGroup;
-			children = (
-				311B688E20E6C2ED00E6CD91 /* Challenge.entitlements */,
-				31D44B0F20D7DD3B008A6155 /* Info.plist */,
-			);
-			path = Support;
-			sourceTree = "<group>";
-		};
 		31AD417520EBCEEA00418617 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				31D44B0A20D7DD3B008A6155 /* Assets.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		31AD417620EBDA1300418617 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				311B688E20E6C2ED00E6CD91 /* Challenge.entitlements */,
+				31D44B0F20D7DD3B008A6155 /* Info.plist */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 		31CA6D7020DAA697000DC552 /* Views */ = {
@@ -173,13 +173,13 @@
 		31D44B0020D7DD3A008A6155 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				31AD417620EBDA1300418617 /* Support */,
 				31AD417520EBCEEA00418617 /* Assets */,
 				31CA6D7020DAA697000DC552 /* Views */,
 				31CF907620D93A0B006B4AA5 /* View Controllers */,
 				31D44B2320D7E078008A6155 /* Data */,
 				31D44B0120D7DD3A008A6155 /* AppDelegate.swift */,
 				31F3A9CF20EBBE0300BA8F34 /* ChallengeNotificationCenter.swift */,
-				31AD417420EBCEC800418617 /* Support */,
 				3172282A20D7FCDC0025FCBD /* StdLibExtensions */,
 			);
 			path = Challenge;
