@@ -201,10 +201,10 @@ extension MyBattlesViewController {
     }
 
     private func indexPathFor(battle: Battle) -> IndexPath? {
-        if let row = activeBattles.firstIndex(where: { $0.id == battle.id }) {
+        if let row = activeBattles.index(where: { $0.id == battle.id }) {
             return IndexPath(row: row, section: Sections.Active.rawValue)
         }
-        if let row = archiveBattles.firstIndex(where: { $0.id == battle.id }) {
+        if let row = archiveBattles.index(where: { $0.id == battle.id }) {
             return IndexPath(row: row, section: Sections.Archive.rawValue)
         }
         return nil
