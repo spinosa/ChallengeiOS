@@ -81,12 +81,14 @@ class MyBattlesViewController: UIViewController {
     public func showBattle(id: String) {
         Webservice.forCurrentUser.load(Battle.show(id: id)) { (battle) in
             if let battle = battle {
-                //not inserting in data model (at least, not for now)
                 if let battleDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "BattleDetailsViewController") as? BattleDetailsViewController {
                     battleDetailsVC.battle = battle
                     battleDetailsVC.didUpdateBattle = self.findAndUpdateBattle
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(battleDetailsVC, animated: true)
+                        //XXX instead of inserting battle into data model,
+                        // try to make sure it's there ...in an mvp way =)
+                        self.reloadAllData()
                     }
                 }
             }
