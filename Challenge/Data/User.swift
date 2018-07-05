@@ -11,11 +11,11 @@ import Foundation
 struct User: Codable {
 
     static func forCreate(screenname: String, email: String, password: String) -> User {
-        return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+        return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, apnsSandboxDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
     }
 
     static func forSignIn(email: String, password: String) -> User {
-        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, apnsSandboxDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
     }
 
     let screenname: String
@@ -29,6 +29,7 @@ struct User: Codable {
 
     /// Used to PATCH user on server side
     var apnsDeviceToken: String?
+    var apnsSandboxDeviceToken: String?
     
     let phone: String?
     let phoneConfirmed: Bool = false

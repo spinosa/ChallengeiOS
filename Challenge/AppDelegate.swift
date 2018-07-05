@@ -51,7 +51,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if var u = User.currentUser {
             let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
             print("Registered for push!  Saving token: \(token)")
-            u.apnsDeviceToken = token
+            #if DEBUG
+                u.apnsSandboxDeviceToken = token
+            #else
+                u.apnsDeviceToken = token
+            #endif
             Webservice.forCurrentUser.patch(User.update, instance: u) { (updatedUser, response) in
                 print("updated user with device token!")
             }
