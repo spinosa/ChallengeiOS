@@ -108,6 +108,12 @@ extension Battle {
         return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(id).json")!)
     }
 
+    //XXX TODO REFACTOR: Webservice could have an IndividuallyAddressable protocol which requires implementation like the following:
+    // and Webservice delete takes an IndividuallyAddressable Resource
+    func resource() -> Resource<Battle> {
+        return Resource<Battle>(url: URL(string: "\(Endpoints.apiBase)/battles/\(id).json")!)
+    }
+
     /// Battles created by others, challenging me
     static let inbox  = Resource<[Battle]>(url: URL(string: "\(Endpoints.apiBase)/battles.json?inbox=true")!)
 

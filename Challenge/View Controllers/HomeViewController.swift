@@ -111,4 +111,34 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+    //MARK: Swipe to Delete
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return User.currentUser?.isRoot ?? false
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            confirmDelete(forRowAt: indexPath)
+        }
+    }
+
+    private func confirmDelete(forRowAt indexPath: IndexPath) {
+        let battle = battles[indexPath.row]
+
+        let alertController = UIAlertController(title: "Delete Battle", message: "Are you sure you want to delete this battle?", preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            Webservice.forCurrentUser.delete(battle.resource(), instance: battle, completion: { urlResult in
+                if let r = urlResult as? HTTPURLResponse, 200...299 ~= r.statusCode {
+                    DispatchQueue.main.async {
+                        self.battles.remove(at: indexPath.row)
+                        self.tableView.deleteRows(at: [indexPath], with: .left)
+                    }
+                }
+            })
+        }))
+        alertController.addAction(UIAlertAction(title: "Keep", style: .default, handler: { _ in
+            //nothing to do on cancel
+        }))
+        present(alertController, animated: true, completion: nil)
+    }
 }

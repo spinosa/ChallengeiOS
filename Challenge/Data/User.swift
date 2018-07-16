@@ -11,11 +11,11 @@ import Foundation
 struct User: Codable {
 
     static func forCreate(screenname: String, email: String, password: String) -> User {
-        return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, apnsSandboxDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+        return User(screenname: screenname, email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, apnsSandboxDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1, isRoot: false)
     }
 
     static func forSignIn(email: String, password: String) -> User {
-        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, apnsSandboxDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1)
+        return User(screenname: "na", email: email, password: password, authorizationHeader: nil, apnsDeviceToken: nil, apnsSandboxDeviceToken: nil, phone: nil, winsTotal: -1, lossesTotal: -1, winsWhenInitiator: -1, lossesWhenInitiator: -1, winsWhenRecipient: -1, lossesWhenRecipient: -1, disputesBroughtTotal: -1, disputesBroughtAgainstTotal: -1, isRoot: false)
     }
 
     let screenname: String
@@ -45,6 +45,9 @@ struct User: Codable {
 
     let disputesBroughtTotal: Int
     let disputesBroughtAgainstTotal: Int
+
+    // rudimentary access control (enforced by API, used by client only for UI/UX modifications)
+    let isRoot: Bool?
 
     /// ******** Current User ********
     private static let CurrentUserKey = "current_user"

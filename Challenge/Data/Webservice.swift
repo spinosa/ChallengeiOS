@@ -53,6 +53,18 @@ final class Webservice {
             }.resume()
     }
 
+    func delete<A>(_ resource: Resource<A>, instance: A, completion: @escaping (URLResponse?) -> ()) {
+        var urlRequest = URLRequest(url: resource.url)
+        decorateHeaders(&urlRequest)
+        urlRequest.httpMethod = "DELETE"
+        urlRequest.httpBody = resource.encode(instance)
+
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, _) in
+            //delete returns nil object or errors
+            completion(response)
+            }.resume()
+    }
+
     private func decorateHeaders(_ urlRequest: inout URLRequest) {
         urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         if useCurrentUserAuthHeader,
