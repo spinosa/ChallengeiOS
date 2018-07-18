@@ -11,10 +11,11 @@ import UIKit
 class BattleDetailsViewController: UIViewController {
 
     @IBOutlet weak var initiatorLabel: UILabel!
+    @IBOutlet weak var battleVerbLabel: UILabel!
     @IBOutlet weak var recipientLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-
     @IBOutlet weak var disputeDisclosureLabel: UILabel!
+    
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var iWonButton: UIButton!
     @IBOutlet weak var iLostButton: UIButton!
@@ -49,6 +50,13 @@ class BattleDetailsViewController: UIViewController {
         loadViewIfNeeded()
 
         self.allButtons.forEach({ $0.isHidden = true })
+
+        switch battle.battleType {
+        case .Challenge:
+            battleVerbLabel.text = "v"
+        case .Dare:
+            battleVerbLabel.text = "dares"
+        }
 
         switch battle.state {
         case .open:

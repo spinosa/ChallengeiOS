@@ -9,9 +9,17 @@
 import UIKit
 import UserNotifications
 
-class CreateBattleViewController: UIViewController, UITextViewDelegate {
+class CreateBattleViewController: UIViewController {
 
+
+    @IBOutlet weak var buttonsContainerViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var buttonsContainerView: UIView!
+    @IBOutlet weak var buttonsScrollView: UIScrollView!
+    @IBOutlet weak var buttonsPageControl: UIPageControl!
     @IBOutlet weak var createChallengeButton: UIButton!
+    @IBOutlet weak var createDareButton: UIButton!
+    @IBOutlet var createButtons: [UIButton]!
+
     @IBOutlet weak var descriptionTextView: UITextView!
     var descriptionPlaceholderLabel : UILabel!
 
@@ -30,15 +38,34 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
 
         setupDescriptionPlaceholderLabel()
         descriptionTextView.becomeFirstResponder()
+
+        createButtons.forEach { button in
+            button.setBackgroundImage(UIImage(color: UIColor.lightGray), for: .disabled)
+        }
+
+        configurePaging()
+        configureKeyboardMovementSync()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     @IBAction func createChallenge(_ sender: Any) {
+        createBattle(type: .Challenge)
+    }
+
+    @IBAction func createDare(_ sender: Any) {
+        createBattle(type: .Dare)
+    }
+
+    private func createBattle(type: Battle.BattleType) {
         guard !hasFormErrors() else { return }
         guard let description = descriptionTextView.text, let opponent = opponent else { return }
 
-        createChallengeButton.isEnabled = false
+        createButtons.forEach { $0.isEnabled  = false }
 
-        let newBattle = Battle.forCreate(recipient: opponent, description: description)
+        let newBattle = Battle.forCreate(recipient: opponent, description: description, type: type)
 
         Webservice.forCurrentUser.post(Battle.create, instance: newBattle) { (battle, _) in
             DispatchQueue.main.async {
@@ -52,13 +79,12 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
     }
 
     private func reset() {
-        self.createChallengeButton.isEnabled = true
+        self.createButtons.forEach { $0.isEnabled = false }
         self.opponent = nil
     }
 
     private func hasFormErrors() -> Bool {
-        //TODO check and highlight
-        return false
+        return descriptionTextView.text.count < 3
     }
 
     private func setupDescriptionPlaceholderLabel() {
@@ -72,11 +98,64 @@ class CreateBattleViewController: UIViewController, UITextViewDelegate {
         descriptionPlaceholderLabel.isHidden = !descriptionTextView.text.isEmpty
     }
 
-    func textViewDidChange(_ textView: UITextView) {
-        descriptionPlaceholderLabel.isHidden = !descriptionTextView.text.isEmpty
-    }
-
     private func requestPushNotifications() {
         ChallengeNotificationCenter.current.requestAuthorization()
     }
+
+    //MARK: - Keyboard position synchronization
+
+    private func configureKeyboardMovementSync() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil, queue: OperationQueue.main) { note in
+            guard let isLocal = note.userInfo?[UIKeyboardIsLocalUserInfoKey] as? Bool, isLocal else { return }
+            if let animationCurve = note.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+                let animationDuration = note.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber,
+                //let frameBegin = note.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? CGRect,
+                let frameEnd = note.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+
+                UIView.beginAnimations(nil, context: nil)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: Int(truncating: animationCurve))!)
+                UIView.setAnimationDuration(TimeInterval(truncating: animationDuration))
+                UIView.setAnimationBeginsFromCurrentState(true)
+                self.buttonsContainerViewBottomConstraint.constant = -frameEnd.minY
+                self.view.layoutIfNeeded()
+                UIView.commitAnimations()
+            }
+        }
+    }
+
+    //MARK: - Paging create buttons
+    func configurePaging() {
+
+        buttonsScrollView.isPagingEnabled = true
+        buttonsScrollView.delegate = self
+    }
+
+    private func scrolledButtonsTo(_ page: Int) {
+        buttonsPageControl.currentPage = page
+        if createButtons.count >= page {
+            buttonsPageControl.currentPageIndicatorTintColor = createButtons[page].backgroundColor
+        }
+    }
+}
+
+extension CreateBattleViewController: UIScrollViewDelegate {
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard scrollView == buttonsScrollView else { return }
+        let page = (scrollView.contentOffset.x / scrollView.frame.width).rounded()
+        scrolledButtonsTo(Int(page))
+    }
+
+}
+
+//MARK: - UITextViewDelegate for description
+
+extension CreateBattleViewController: UITextViewDelegate {
+
+    func textViewDidChange(_ textView: UITextView) {
+        descriptionPlaceholderLabel.isHidden = !descriptionTextView.text.isEmpty
+        let formValid = !hasFormErrors()
+        createButtons.forEach { $0.isEnabled = formValid }
+    }
+
 }

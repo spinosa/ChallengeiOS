@@ -10,6 +10,7 @@
 		3100D24F20DD73EE00D4080E /* MyBattlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3100D24E20DD73EE00D4080E /* MyBattlesViewController.swift */; };
 		3100D25120DD7AF900D4080E /* BattleSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3100D25020DD7AF900D4080E /* BattleSummaryTableViewCell.swift */; };
 		311B687520E678DC00E6CD91 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C218B020E52FD5006DA452 /* Endpoints.swift */; };
+		314C2D7E20FFA75B009AAB6E /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314C2D7D20FFA75B009AAB6E /* UIImageExtensions.swift */; };
 		3172282C20D7FCFA0025FCBD /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172282B20D7FCFA0025FCBD /* DateExtensions.swift */; };
 		3172282D20D7FD190025FCBD /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172282B20D7FCFA0025FCBD /* DateExtensions.swift */; };
 		31C218B120E52FD6006DA452 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C218B020E52FD5006DA452 /* Endpoints.swift */; };
@@ -50,6 +51,7 @@
 		3100D24E20DD73EE00D4080E /* MyBattlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBattlesViewController.swift; sourceTree = "<group>"; };
 		3100D25020DD7AF900D4080E /* BattleSummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		311B688E20E6C2ED00E6CD91 /* Challenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge.entitlements; sourceTree = "<group>"; };
+		314C2D7D20FFA75B009AAB6E /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3172282B20D7FCFA0025FCBD /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		31C218B020E52FD5006DA452 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				3172282B20D7FCFA0025FCBD /* DateExtensions.swift */,
+				314C2D7D20FFA75B009AAB6E /* UIImageExtensions.swift */,
 			);
 			path = StdLibExtensions;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				31CA6D6F20DAA5BB000DC552 /* SelectOpponentViewController.swift in Sources */,
 				31CA6D7220DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift in Sources */,
 				31D44B2520D7E096008A6155 /* Battle.swift in Sources */,
+				314C2D7E20FFA75B009AAB6E /* UIImageExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

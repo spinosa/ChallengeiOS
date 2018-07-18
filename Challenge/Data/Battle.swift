@@ -10,8 +10,8 @@ import Foundation
 
 struct Battle: Codable {
 
-    static func forCreate(recipient: User, description: String, invitedRecipientEmail: String? = nil, invitedRecipientPhoneNumber: String? = nil) -> Battle {
-        return Battle(id: "na", initiator: recipient, recipient: recipient, recipientScreenname: recipient.screenname, description: description, outcome: .TBD, state: .open, disputedBy: nil, disputedAt: nil, invitedRecipientEmail: invitedRecipientEmail, invitedRecipientPhoneNumber: invitedRecipientPhoneNumber, createdAt: Date(), updatedAt: Date())
+    static func forCreate(recipient: User, description: String, type: BattleType, invitedRecipientEmail: String? = nil, invitedRecipientPhoneNumber: String? = nil) -> Battle {
+        return Battle(id: "na", initiator: recipient, recipient: recipient, recipientScreenname: recipient.screenname, description: description, battleType: type, outcome: .TBD, state: .open, disputedBy: nil, disputedAt: nil, invitedRecipientEmail: invitedRecipientEmail, invitedRecipientPhoneNumber: invitedRecipientPhoneNumber, createdAt: Date(), updatedAt: Date())
     }
 
     let id: String
@@ -23,6 +23,7 @@ struct Battle: Codable {
     let recipientScreenname: String?
 
     let description: String
+    let battleType: BattleType
     let outcome: Outcome
     let state: State
 
@@ -34,6 +35,11 @@ struct Battle: Codable {
 
     let createdAt: Date
     let updatedAt: Date
+
+    enum BattleType: Int, Codable {
+        case Challenge = 0,
+        Dare = 1
+    }
 
     enum Outcome: Int, Codable {
         case TBD = 1,

@@ -31,21 +31,21 @@ class BattleSummaryTableViewCell: UITableViewCell {
 
         switch battle.state {
         case .cancelledByInitiator:
-            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser, in: battle)
             detailTextLabel?.text = "withdrawn by \(initiator.screenname)"
 
         case .open:
-            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser, in: battle)
             User.currentUser == recipient ?
                 (detailTextLabel?.text = "waiting for you to accept") :
                 (detailTextLabel?.text = "waiting for \(recipient.screenname) to accept")
 
         case .declinedByRecipient:
-            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser, in: battle)
             detailTextLabel?.text = "declined by \(recipient.screenname)"
 
         case .pending:
-            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
+            textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser, in: battle)
             detailTextLabel?.text = "it's on!"
 
         case .complete:
@@ -65,7 +65,7 @@ class BattleSummaryTableViewCell: UITableViewCell {
                 detailTextLabel?.text = "defeating \(initiator.screenname)"
 
             case .noContest:
-                textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser)
+                textLabel?.text = headline(initiator, v: recipient, perspective: User.currentUser, in: battle)
                 detailTextLabel?.text = "no contest"
 
             case .TBD:
@@ -75,17 +75,33 @@ class BattleSummaryTableViewCell: UITableViewCell {
         }
     }
 
-    private func headline(_ initiator: User, v recipient: User, perspective: User?) -> String {
+    private func headline(_ initiator: User, v recipient: User, perspective: User?, in battle: Battle) -> String {
         if let viewer = perspective {
             if viewer == initiator {
-                return "You v \(recipient.screenname)"
+                switch battle.battleType {
+                case .Challenge:
+                    return "You v \(recipient.screenname)"
+                case .Dare:
+                    return "You dared \(recipient.screenname)"
+                }
             }
             if viewer == recipient {
-                return "\(initiator.screenname) challenged you"
+                switch battle.battleType {
+                case .Challenge:
+                    return "\(initiator.screenname) challenges you"
+                case .Dare:
+                    return "\(initiator.screenname) dares you"
+                }
+
             }
         }
 
-        return "\(initiator.screenname) v \(recipient.screenname)"
+        switch battle.battleType {
+        case .Challenge:
+            return "\(initiator.screenname) v \(recipient.screenname)"
+        case .Dare:
+            return "\(initiator.screenname) dares \(recipient.screenname)"
+        }
     }
 
 }
