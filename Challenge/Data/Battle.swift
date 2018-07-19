@@ -45,7 +45,9 @@ struct Battle: Codable {
         case TBD = 1,
         initiatorWin = 2,
         initiatorLoss = 4,
-        noContest = 8
+        noContest = 8,
+        recipientDareWin = 16,
+        recipientDareLoss = 32
     }
 
     enum State: Int, Codable {
