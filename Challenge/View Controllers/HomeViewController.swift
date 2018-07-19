@@ -112,6 +112,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowBattleDetails", sender: nil)
+    }
+
     //MARK: Swipe to Delete
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return User.currentUser?.isRoot ?? false

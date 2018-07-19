@@ -184,6 +184,9 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "ShowBattleDetails", sender: nil)
+    }
 }
 
 //MARK: - Data Model Helpers

@@ -553,6 +553,7 @@
                     <navigationItem key="navigationItem" title="You" id="5bT-N3-5S0"/>
                     <connections>
                         <outlet property="tableView" destination="AdS-Sw-11N" id="lgn-oi-CFH"/>
+                        <segue destination="90C-vs-Hb0" kind="show" identifier="ShowBattleDetails" id="7Mt-35-hPo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EfT-bw-6hM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -589,6 +590,7 @@
                     <navigationItem key="navigationItem" title="Public Challenges" id="Dng-Bz-3J2"/>
                     <connections>
                         <outlet property="tableView" destination="JAh-BW-GlL" id="fM0-2x-xeE"/>
+                        <segue destination="90C-vs-Hb0" kind="show" identifier="ShowBattleDetails" id="bd5-aw-1m4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mh-nZ-Qni" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -667,5 +669,8 @@
             <color red="0.0" green="0.69803921568627447" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="bd5-aw-1m4"/>
+    </inferredMetricsTieBreakers>
     <color key="tintColor" name="GlobalTintColor"/>
 </document>
