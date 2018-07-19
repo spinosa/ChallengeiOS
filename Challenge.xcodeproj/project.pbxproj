@@ -13,6 +13,8 @@
 		314C2D7E20FFA75B009AAB6E /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314C2D7D20FFA75B009AAB6E /* UIImageExtensions.swift */; };
 		3172282C20D7FCFA0025FCBD /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172282B20D7FCFA0025FCBD /* DateExtensions.swift */; };
 		3172282D20D7FD190025FCBD /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3172282B20D7FCFA0025FCBD /* DateExtensions.swift */; };
+		31AF57422100C7F100008AAB /* BattleSummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31AF57412100C7F100008AAB /* BattleSummaryTableViewCell.xib */; };
+		31AF57442100CDEF00008AAB /* BattleCopyWriting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AF57432100CDEF00008AAB /* BattleCopyWriting.swift */; };
 		31C218B120E52FD6006DA452 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C218B020E52FD5006DA452 /* Endpoints.swift */; };
 		31CA6D6D20DA8D3D000DC552 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */; };
 		31CA6D6F20DAA5BB000DC552 /* SelectOpponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CA6D6E20DAA5BB000DC552 /* SelectOpponentViewController.swift */; };
@@ -53,6 +55,8 @@
 		311B688E20E6C2ED00E6CD91 /* Challenge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge.entitlements; sourceTree = "<group>"; };
 		314C2D7D20FFA75B009AAB6E /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
 		3172282B20D7FCFA0025FCBD /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		31AF57412100C7F100008AAB /* BattleSummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BattleSummaryTableViewCell.xib; sourceTree = "<group>"; };
+		31AF57432100CDEF00008AAB /* BattleCopyWriting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleCopyWriting.swift; sourceTree = "<group>"; };
 		31C218B020E52FD5006DA452 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 		31CA6D6C20DA8D3D000DC552 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		31CA6D6E20DAA5BB000DC552 /* SelectOpponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOpponentViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				31D44B0720D7DD3A008A6155 /* Main.storyboard */,
 				31CA6D7120DAA6C1000DC552 /* UsernameSelectionTableViewCell.swift */,
 				3100D25020DD7AF900D4080E /* BattleSummaryTableViewCell.swift */,
+				31AF57412100C7F100008AAB /* BattleSummaryTableViewCell.xib */,
+				31AF57432100CDEF00008AAB /* BattleCopyWriting.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -299,6 +305,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31AF57422100C7F100008AAB /* BattleSummaryTableViewCell.xib in Resources */,
 				31D44B0E20D7DD3B008A6155 /* LaunchScreen.storyboard in Resources */,
 				31D44B0B20D7DD3B008A6155 /* Assets.xcassets in Resources */,
 				31D44B0920D7DD3A008A6155 /* Main.storyboard in Resources */,
@@ -326,6 +333,7 @@
 				31C218B120E52FD6006DA452 /* Endpoints.swift in Sources */,
 				31D44B2D20D7F275008A6155 /* Webservice.swift in Sources */,
 				31CA6D6D20DA8D3D000DC552 /* HomeViewController.swift in Sources */,
+				31AF57442100CDEF00008AAB /* BattleCopyWriting.swift in Sources */,
 				31CF907A20D93AB0006B4AA5 /* SignInViewController.swift in Sources */,
 				31D44B2720D7E1D2008A6155 /* User.swift in Sources */,
 				31CA6D7720DAEE1D000DC552 /* BattleDetailsViewController.swift in Sources */,

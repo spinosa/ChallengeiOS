@@ -42,6 +42,7 @@ class MyBattlesViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.refreshControl = refreshControl
+        tableView.register(UINib(nibName: "BattleSummaryTableViewCell", bundle: nil), forCellReuseIdentifier: BattleSummaryTableViewCell.ReuseIdentifier)
         
         NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (_) in
             self.reloadAllData()
@@ -143,9 +144,9 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case Sections.Active.rawValue:
-            return "Active Challenges"
+            return "Active"
         case Sections.Archive.rawValue:
-            return "Completed Challenges"
+            return "Completed"
         default:
             preconditionFailure("Unhandled section")
         }
@@ -163,7 +164,7 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "battleSummaryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: BattleSummaryTableViewCell.ReuseIdentifier, for: indexPath)
 
         let battle: Battle
         switch indexPath.section {
@@ -177,7 +178,7 @@ extension MyBattlesViewController: UITableViewDataSource, UITableViewDelegate {
         }
 
         if let battleSummaryCell = cell as? BattleSummaryTableViewCell {
-            battleSummaryCell.configure(for: battle)
+            battleSummaryCell.battle = battle
         }
 
         return cell

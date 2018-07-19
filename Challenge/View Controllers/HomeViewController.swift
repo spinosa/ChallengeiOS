@@ -31,6 +31,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.refreshControl = refreshControl
+        tableView.register(UINib(nibName: "BattleSummaryTableViewCell", bundle: nil), forCellReuseIdentifier: BattleSummaryTableViewCell.ReuseIdentifier)
 
         NotificationCenter.default.addObserver(forName: User.DidSetCurrentUser, object: nil, queue: OperationQueue.main) { (_) in
             self.reloadAllData()
@@ -101,11 +102,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "battleSummaryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: BattleSummaryTableViewCell.ReuseIdentifier, for: indexPath)
         let battle = self.battles[indexPath.row]
 
         if let battleSummaryCell = cell as? BattleSummaryTableViewCell {
-            battleSummaryCell.configure(for: battle)
+            battleSummaryCell.battle = battle
         }
 
         return cell
