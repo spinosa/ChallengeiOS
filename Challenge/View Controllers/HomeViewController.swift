@@ -80,7 +80,7 @@ class HomeViewController: UIViewController {
         let idx = IndexPath(row: 0, section: 0)
         self.tableView.insertRows(at: [idx], with: .top)
         self.tableView.selectRow(at: idx, animated: true, scrollPosition: .top)
-        self.performSegue(withIdentifier: "battleSelectedSegue", sender: nil)
+        self.performSegue(withIdentifier: "ShowBattleDetails", sender: nil)
     }
 
     private func selectedBattle() -> (Battle, IndexPath)? {
