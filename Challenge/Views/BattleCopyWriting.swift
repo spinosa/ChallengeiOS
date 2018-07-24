@@ -5,13 +5,46 @@
 //  Created by Daniel Spinosa on 7/19/18.
 //  Copyright © 2018 Cromulent Consulting, Inc. All rights reserved.
 //
+//  Not sure how I feel about this UI copy writing helper being an extension on Battle.
+//  It certainly is convenient.  Looks pretty good at the call site.
+//  I very much like how discoverable this API is.
+//  But it smells a bit, adding this View code onto a Model.
+//  Maybe I'll refactor this into something like BattleCopy.headline(_ battle: Battle, fromPerspectiveOf user: User)
 
 import UIKit
 
 //MARK: - Last Update copy writing
 extension Battle {
+    
     func lastUpdatedCopy() -> String {
-        return "JUST NOW"
+        let componentsOfTimeAgo = Calendar.current.dateComponents([.minute, .hour, .day, .month], from: self.updatedAt, to: Date())
+        // 6+ months ago
+        if let months = componentsOfTimeAgo.month, months > 6 {
+            return DateFormatter.monthDayYearForUI.string(from: self.updatedAt)
+        }
+
+        // < 24 hours ago
+        if let days = componentsOfTimeAgo.day, days < 1,
+            let hours = componentsOfTimeAgo.hour,
+            let minutes = componentsOfTimeAgo.minute {
+            switch hours {
+            case 0:
+                switch minutes {
+                case 0..<5:
+                    return "just now"
+                default:
+                    return "\(minutes) minutes ago"
+                }
+            case 1:
+                return "1 hour ago"
+            default:
+                return "\(hours) hours ago"
+            }
+        }
+
+        // 1 day ... 6 months
+        return DateFormatter.monthDayForUI.string(from: self.updatedAt)
+
     }
 }
 
