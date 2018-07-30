@@ -43,6 +43,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="0Cc-sL-Od8" firstAttribute="leading" secondItem="P2p-F1-BnJ" secondAttribute="leadingMargin" id="4KU-pk-vdf"/>
                     <constraint firstItem="xBK-L1-Yns" firstAttribute="firstBaseline" secondItem="1ue-MS-agO" secondAttribute="firstBaseline" id="5eS-hI-Vvl"/>
@@ -57,6 +58,7 @@
                     <constraint firstItem="tSo-R1-9gK" firstAttribute="leading" secondItem="P2p-F1-BnJ" secondAttribute="leadingMargin" id="ihg-cD-eVS"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="contentLabel" destination="0Cc-sL-Od8" id="qod-y2-aMa"/>
                 <outlet property="dateLabel" destination="xBK-L1-Yns" id="3oq-Xj-Iei"/>

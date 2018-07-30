@@ -223,57 +223,56 @@ extension Battle {
 
 //MARK: - Background color
 // it's kinda like copy
-//TODO: replace GREEN -> positive color
-//              RED -> negative color
-//              WHITE - > neurtral color
 extension Battle {
-    func backgroundColorFromPerspectiveOf(_ viewingUser: User?) -> UIColor {
+    func backgroundColorsFromPerspectiveOf(_ viewingUser: User?) -> [CGColor] {
         switch self.battleType {
         case .Challenge:
             if viewingUser != nil {
                 if viewingUser == self.initiator {
-                    return initiatorsPerspectiveChallengeBackgroundColor()
+                    return initiatorsPerspectiveChallengeBackgroundColors()
                 }
                 if viewingUser == self.recipient {
-                    return recipientsPerspectiveChallengeBackgroundColor()
+                    return recipientsPerspectiveChallengeBackgroundColors()
                 }
             }
-            return UIColor.white
+            return Colors.neutralGradientBackgroundColors
         case .Dare:
-            return backgroundColorForDare()
+            return backgroundColorsForDare()
         }
     }
 
-    fileprivate func initiatorsPerspectiveChallengeBackgroundColor() -> UIColor {
+    
+
+    fileprivate func initiatorsPerspectiveChallengeBackgroundColors() -> [CGColor] {
         switch self.outcome {
         case .initiatorWin:
-            return UIColor.green
+            return Colors.positiveGradientBackgroundColors
         case .initiatorLoss:
-            return UIColor.red
+            return Colors.negativeGradientBackgroundColors
         default:
-            return UIColor.white
+            return Colors.neutralGradientBackgroundColors
         }
     }
 
-    fileprivate func recipientsPerspectiveChallengeBackgroundColor() -> UIColor {
+    fileprivate func recipientsPerspectiveChallengeBackgroundColors() -> [CGColor] {
         switch self.outcome {
         case .initiatorWin:
-            return UIColor.red
+            return Colors.negativeGradientBackgroundColors
         case .initiatorLoss:
-            return UIColor.green
+            return Colors.positiveGradientBackgroundColors
         default:
-            return UIColor.white
+            return Colors.neutralGradientBackgroundColors
         }
     }
 
-    fileprivate func backgroundColorForDare() -> UIColor {
+    fileprivate func backgroundColorsForDare() -> [CGColor] {
         switch self.outcome {
         case .recipientDareWin:
-            return UIColor.green
+            return Colors.positiveGradientBackgroundColors
         case .recipientDareLoss:
-            return UIColor.red
+            return Colors.negativeGradientBackgroundColors
         default:
-            return UIColor.white
+            return Colors.neutralGradientBackgroundColors
         }
     }
 }

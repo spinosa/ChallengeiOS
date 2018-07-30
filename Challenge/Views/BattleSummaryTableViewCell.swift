@@ -19,6 +19,8 @@ class BattleSummaryTableViewCell: UITableViewCell {
 
     @IBOutlet var allLabels: [UILabel]!
 
+    var gradientBackgroundLayer: CAGradientLayer!
+
     var battle: Battle? {
         didSet {
             updateUI()
@@ -27,6 +29,10 @@ class BattleSummaryTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        let grad = UIGradientBackgroundView()
+        grad.gradientLayer.transform = CATransform3DMakeRotation(CGFloat.pi / 2, 0, 0, 1)
+        gradientBackgroundLayer = grad.gradientLayer
+        backgroundView = grad
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -49,7 +55,8 @@ class BattleSummaryTableViewCell: UITableViewCell {
         dateLabel.text = battle.lastUpdatedCopy()
         headlineLabel.text = battle.headlineCopyFromPerspectiveOf(User.currentUser)
         contentLabel.text = battle.contentCopy()
-        self.backgroundColor = battle.backgroundColorFromPerspectiveOf(User.currentUser)
+
+        self.gradientBackgroundLayer.colors = battle.backgroundColorsFromPerspectiveOf(User.currentUser)
     }
 
 }
