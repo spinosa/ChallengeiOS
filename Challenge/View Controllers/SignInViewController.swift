@@ -58,14 +58,13 @@ class SignInViewController: UIViewController {
         signInButton.isEnabled = false
 
         let userCreds: User = User.forSignIn(email: em, password: pw)
-        Webservice().post(User.signIn, instance: userCreds) { user, urlResponse in
-            //TODO: DRY with sign up
-            if var user = user,
-                let response = urlResponse as? HTTPURLResponse,
-                let authHeader = response.allHeaderFields["Authorization"] as? String {
-                user.authorizationHeader = authHeader
-                User.currentUser = user
+
+        Webservice().post(User.signIn, instance: userCreds, success: { (user, response) in
+            if !self.setCurrentUser(from: user, response: response) {
+                self.present(error: nil, withTitle: "Problem Signing In")
             }
+        }) { (error) in
+            self.present(error: error, withTitle: "Problem Signing In")
         }
     }
 
@@ -78,15 +77,48 @@ class SignInViewController: UIViewController {
         signUpButton.isEnabled = false
 
         let newUser: User = User.forCreate(screenname: sn, email: em, password: pw)
-        Webservice().post(User.create, instance: newUser) { createdUser, urlResponse in
-            //TOOD: DRY with sign in
-            if var user = createdUser,
-                let response = urlResponse as? HTTPURLResponse,
-                let authHeader = response.allHeaderFields["Authorization"] as? String {
-                user.authorizationHeader = authHeader
-                User.currentUser = user
+        Webservice().post(User.create, instance: newUser, success: { (createdUser, response) in
+            if !self.setCurrentUser(from: createdUser, response: response) {
+                self.present(error: nil, withTitle: "Problem Signing Up")
+            }
+        }) { (error) in
+            self.present(error: error, withTitle: "Problem Signing Up")
+        }
+    }
+
+    private func setCurrentUser(from returnedUser: User, response: HTTPURLResponse) -> Bool {
+        guard let authHeader = response.allHeaderFields["Authorization"] as? String else {
+            assertionFailure("Expected Authorization Header in response")
+            return false
+        }
+        var user = returnedUser
+        user.authorizationHeader = authHeader
+        User.currentUser = user
+        return true
+    }
+
+    private func present(error: ErrorResponse?, withTitle title: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: self.message(from: error), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Let's Try Again", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: {
+                self.signInButton.isEnabled = true
+                self.signUpButton.isEnabled = true
+            })
+        }
+    }
+
+    private func message(from error: ErrorResponse?) -> String {
+        if let error = error {
+            if let singleMessage = error.error {
+                return singleMessage
+            }
+            else if let errors = error.errors {
+                return errors.map({ "\($0.capitalized) \($1.joined(separator: ", "))." }).joined(separator: "\n\n")
             }
         }
+
+        return "Something quite unexpected went wrong."
     }
 
     private func hasSignUpFormErrors() -> Bool {

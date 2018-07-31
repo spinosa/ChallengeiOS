@@ -67,7 +67,7 @@ class CreateBattleViewController: UIViewController {
 
         let newBattle = Battle.forCreate(recipient: opponent, description: description, type: type)
 
-        Webservice.forCurrentUser.post(Battle.create, instance: newBattle) { (battle, _) in
+        Webservice.forCurrentUser.post(Battle.create, instance: newBattle, success: { (battle, _) in
             DispatchQueue.main.async {
                 self.requestPushNotifications()
 
@@ -75,6 +75,8 @@ class CreateBattleViewController: UIViewController {
                 self.reset()
                 self.navigationController?.popToRootViewController(animated: false)
             }
+        }) { (error) in
+            //TODO: present error
         }
     }
 

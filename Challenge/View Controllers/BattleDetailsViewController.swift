@@ -118,8 +118,10 @@ class BattleDetailsViewController: UIViewController {
     @IBAction func acceptChallenge(_ sender: Any) {
         guard let battle = battle else { return }
 
-        Webservice.forCurrentUser.post(battle.accept()) { [weak self] updatedBattle, resp in
+        Webservice.forCurrentUser.post(battle.accept(), success: { [weak self] (updatedBattle, _) in
             self?.battle = updatedBattle
+        }) { (error) in
+            //TODO: present error
         }
     }
 
@@ -128,8 +130,10 @@ class BattleDetailsViewController: UIViewController {
         assert(User.currentUser == battle.recipient, "only recipient should be able to say they won")
         guard User.currentUser == battle.recipient else { return }
 
-        Webservice.forCurrentUser.post(battle.complete(outcome: .initiatorLoss)) { [weak self] updatedBattle, resp in
+        Webservice.forCurrentUser.post(battle.complete(outcome: .initiatorLoss), success: { [weak self] (updatedBattle, _) in
             self?.battle = updatedBattle
+        }) { (error) in
+            //TODO: present error
         }
     }
 
@@ -138,8 +142,10 @@ class BattleDetailsViewController: UIViewController {
         assert(User.currentUser == battle.recipient, "only recipient should be able to say they won")
         guard User.currentUser == battle.recipient else { return }
 
-        Webservice.forCurrentUser.post(battle.complete(outcome: .initiatorWin)) { [weak self] updatedBattle, resp in
+        Webservice.forCurrentUser.post(battle.complete(outcome: .initiatorWin), success: { [weak self] (updatedBattle, _) in
             self?.battle = updatedBattle
+        }) { (error) in
+            //TODO: present error
         }
     }
 
@@ -148,8 +154,10 @@ class BattleDetailsViewController: UIViewController {
         assert(User.currentUser == battle.recipient, "only recipient should be able to say they won")
         guard User.currentUser == battle.recipient else { return }
 
-        Webservice.forCurrentUser.post(battle.complete(outcome: .noContest)) { [weak self] updatedBattle, resp in
+        Webservice.forCurrentUser.post(battle.complete(outcome: .noContest), success: { [weak self] (updatedBattle, _) in
             self?.battle = updatedBattle
+        }) { (error) in
+            //TODO: present error
         }
     }
 
@@ -158,8 +166,10 @@ class BattleDetailsViewController: UIViewController {
         assert(User.currentUser == battle.initiator, "only initiator should be able to dispute ")
         guard User.currentUser == battle.initiator else { return }
 
-        Webservice.forCurrentUser.post(battle.dispute()) { [weak self] updatedBattle, resp in
+        Webservice.forCurrentUser.post(battle.dispute(), success: { [weak self] (updatedBattle, _) in
             self?.battle = updatedBattle
+        }) { (error) in
+            //TODO: present error
         }
     }
 
